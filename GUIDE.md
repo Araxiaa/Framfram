@@ -14,7 +14,7 @@
 | L'histoire (les périodes)                | `histoire.html`                  |
 | La relation au clan, la diplomatie       | `relations.html`                 |
 | La charte, la fiche rapide, la devise    | `index.html`                     |
-| Un lien du menu, le pied de page         | `js/site.js`                     |
+| Un lien du menu, sa phrase sur l'accueil, le pied de page | `js/site.js`    |
 
 Les fichiers `js/data/` sont des listes : chaque chat, relation, vie ou œuvre est un petit bloc
 `{ ... }` à copier-coller. Le mode d'emploi est écrit en commentaire en haut de chaque fichier.
@@ -36,7 +36,7 @@ un backtick ou la suite `${` à l'intérieur d'un texte.
 
 | Je veux changer…                         | Je vais dans…                    |
 |------------------------------------------|----------------------------------|
-| Les couleurs, les polices                | `css/base.css` (variables en haut) |
+| Les couleurs, les polices                | `css/base.css` (variables en haut ; le bloc `data-theme="dark"` règle le thème sombre) |
 | L'en-tête, le menu, le pied de page      | `css/layout.css`                 |
 | Les accordéons, pastilles, panneaux      | `css/components.css`             |
 | Le design d'une page précise             | `css/pages/<nom de la page>.css` |
@@ -53,10 +53,20 @@ Elles se chargent depuis le bloc « Animations » en bas de `js/site.js`.
 
 Les personnes qui ont activé « réduire les animations » sur leur appareil voient un site immobile.
 
+## Thème clair / sombre
+
+Le site suit le réglage de l'appareil, et le bouton en forme de lune (en haut) permet de choisir.
+Les couleurs des deux thèmes sont dans `css/base.css` ; le script `js/theme.js` retient le choix.
+
 ## Les images
 
 Toutes les images vont dans `assets/photos/`, y compris `avatar_courlis.png`
-(qui était auparavant à la racine du site).
+(qui n'est pas encore ajouté : l'initiale s'affiche à sa place).
+
+**Format** : préfère le **WebP** (10 à 15 fois plus léger que le PNG, même rendu). Pour convertir une image,
+l'outil en ligne squoosh.app suffit (qualité 80, largeur maximale ~1600 px). Pense à écrire
+l'extension `.webp` dans `js/data/*.js`. Les anciens PNG originaux sont gardés dans le dossier
+« Etoile de Framboisier - originaux », hors du site.
 
 Le nom du fichier dans `js/data/*.js` doit correspondre exactement au nom réel de l'image.
 Si une image est introuvable, le site affiche l'initiale du chat (portraits)
