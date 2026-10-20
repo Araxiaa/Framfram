@@ -21,7 +21,7 @@ window.RELATIONS = [
         nom: 'Nuage de Nénuphar',
         role: 'Sœur adoptive',
         joueur: '@Une_Bretonne',
-        photo: 'Nuage de Nénuphar.png',
+        photo: 'Nuage de Nénuphar.webp',
         affinite: 3,
         texte: 'Sa sœur adoptive, rescapée du Clan de la Rivière après sa tragique dissolution. Étoile de Framboisier l\'aime énormément. Elle partage son tempérament calme et posé, ce qui crée un écho réconfortant pour lui. Pourtant, une barrière invisible persiste : elle s\'efforce de le garder à distance, un recul que le meneur tente d\'apprivoiser avec douceur.'
     },
@@ -30,7 +30,7 @@ window.RELATIONS = [
         nom: 'Petit Galopin',
         role: 'Fils adoptif',
         joueur: '@Oriyakii',
-        photo: 'Petit Galopin - Oriyakii.png',
+        photo: 'Petit Galopin - Oriyakii.webp',
         affinite: 3,
         texte: 'Son premier fils adoptif. Étoile de Framboisier l\'a découvert abandonné à la lisière même du territoire du clan. Ce moment a marqué son cœur à tout jamais : n\'écoutant que son instinct protecteur, il l\'a pris sous son aile. Qu\'importe l\'absence de liens de sang, Galopin est son fils, le symbole vivant de son refus de voir une enfance brisée.'
     },
@@ -42,15 +42,6 @@ window.RELATIONS = [
         photo: 'avatar_courlis.png',
         affinite: 3,
         texte: 'Son second fils adoptif, qu\'il chérit tout autant. Étoile de Framboisier éprouve pour lui un amour incommensurable et protecteur. À ses côtés, le jeune meneur oublie le poids de son masque de chef pour n\'être qu\'un père dévoué. Courlis est ancré profondément dans son cœur, précieux gardien de son cercle intime.'
-    },
-
-    {
-        nom: 'Aube du Myosotis',
-        role: 'Guérisseuse',
-        joueur: 'PNJ',
-        affinite: 0,
-        respect: true,
-        texte: 'La guérisseuse du clan. Elle représente un point d\'ancrage crucial pour lui, une épaule spirituelle indispensable pour assumer les lourdes responsabilités de son rang de meneur. Pourtant, leur relation est teintée d\'une froideur latente : elle maintient une distance prudente et se montre méfiante à son égard, troublée par le fait qu\'il ait été choisi si jeune par le Clan des Étoiles.'
     },
 
     {

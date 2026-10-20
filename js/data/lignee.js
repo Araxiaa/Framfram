@@ -50,13 +50,13 @@ window.LIGNEE = {
                         { nom: 'Épine de Fraisier', role: 'Frère', statut: 'decede', etiquette: 'Décédé', photo: 'Epine de Fraisier - PNJ.png' },
                         { nom: 'Ombre de Myrtille', role: 'Sœur', statut: 'decede', etiquette: 'Décédée', photo: 'Ombre de Myrtille - PNJ.png' },
                         { nom: 'Nuage de Mûre', role: 'Sœur', statut: 'decede', etiquette: 'Décédée', photo: 'Nuage de Mûre.png' },
-                        { nom: 'Étoile de Framboisier', role: 'Meneur du Tonnerre', statut: 'heros', etiquette: 'Meneur', photo: 'Headshot Etoile de Framboisier Oriyakii.png' }
+                        { nom: 'Étoile de Framboisier', role: 'Meneur du Tonnerre', statut: 'heros', etiquette: 'Meneur', photo: 'Headshot Etoile de Framboisier Oriyakii.webp' }
                     ]
                 },
                 {
                     titre: 'Par adoption',
                     membres: [
-                        { nom: 'Veille de Nénuphar', role: 'Sœur adoptive', statut: 'vivant-pj', etiquette: 'Vivante', joueur: '@Une_Bretonne', photo: 'Nuage de Nénuphar.png' },
+                        { nom: 'Veille de Nénuphar', role: 'Sœur adoptive', statut: 'vivant-pj', etiquette: 'Vivante', joueur: '@Une_Bretonne', photo: 'Nuage de Nénuphar.webp' },
                         { nom: 'Piquée du Cormoran', role: 'Frère adoptif', statut: 'vivant', etiquette: 'Vivante', joueur: 'PNJ', photo: 'Piquée du Cormoran.png' }
                     ]
                 },
@@ -74,7 +74,7 @@ window.LIGNEE = {
                 {
                     titre: 'Fils adoptifs',
                     membres: [
-                        { nom: 'Petit Galopin', role: 'Fils adoptif', statut: 'decede', etiquette: 'Mort', joueur: '@Oriyakii', photo: 'Petit Galopin - Oriyakii.png' },
+                        { nom: 'Petit Galopin', role: 'Fils adoptif', statut: 'decede', etiquette: 'Mort', joueur: '@Oriyakii', photo: 'Petit Galopin - Oriyakii.webp' },
                         { nom: 'Petit Courlis', role: 'Fils adoptif', statut: 'decede', etiquette: 'Mort', joueur: '@_.velyxia', photo: 'Petit Courlis.png' },
                         { nom: 'Petite Oie', role: 'Fille adoptive', statut: 'vivant-pj', etiquette: 'vivante', joueur: '@plumeau_', photo: 'Petite Oie.png' }
                     ]
