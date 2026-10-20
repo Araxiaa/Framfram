@@ -1,9 +1,8 @@
 /* ==========================================================================
    BASE — couleurs, polices, réglages de lecture.
    C'est ici qu'on change l'identité visuelle du site.
+   Les polices sont chargées par les <link> dans le <head> de chaque page.
    ========================================================================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Figtree:wght@400;500;600&display=swap');
 
 :root {
     /* Le ciel d'été de ses yeux */
@@ -11,13 +10,14 @@
     --brume-profonde: #CFDAE4;   /* filets, bordures */
     --azur: #6FAFD0;
     --azur-pale: #D9EAF3;
-    --azur-profond: #2F6F95;     /* liens, focus (lisible sur crème) */
+    --azur-profond: #2F6F95;     /* liens, focus */
 
     /* Son pelage red point : blanc crème, extrémités rousses */
     --creme: #FBF7F0;            /* surfaces */
     --creme-ombre: #F1EADD;
     --roux: #D9803E;
     --roux-pale: #F3D9C2;
+    --roux-texte: #8A4A17;
 
     /* Le fruit */
     --framboise: #B23A5C;
@@ -27,28 +27,67 @@
     --encre: #2A2730;
     --encre-douce: #5B5763;
 
+    /* Effets */
+    --ciel-haut: #CFE3F0;                          /* haut du dégradé de page */
+    --verre: rgba(251, 247, 240, 0.82);            /* en-tête translucide */
+    --ombre: 0 1px 2px rgba(42, 39, 48, 0.05), 0 8px 24px -12px rgba(47, 111, 149, 0.28);
+    --ombre-haute: 0 2px 4px rgba(42, 39, 48, 0.06), 0 18px 36px -14px rgba(47, 111, 149, 0.4);
+    --nuage: #fff;
+
     --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
     --sans: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
     --mesure: 68ch;
-    --rayon-l: 20px;
-    --rayon-m: 12px;
+    --rayon-l: 24px;
+    --rayon-m: 14px;
     --rayon-s: 8px;
 
     /* Signature : la couleur n'existe qu'aux extrémités */
     --pelage: linear-gradient(90deg,
         var(--roux) 0%, var(--roux-pale) 14%, var(--creme) 32%,
         var(--creme) 68%, var(--roux-pale) 86%, var(--roux) 100%);
+
+    color-scheme: light;
+}
+
+/* ---------- Thème sombre : la nuit tombe sur le Tonnerre ----------
+   Automatique selon l'appareil, ou choisi avec le bouton du menu. */
+:root[data-theme="dark"] {
+    --brume: #14202B;
+    --brume-profonde: #2C4152;
+    --azur: #6FAFD0;
+    --azur-pale: #1F3A4D;
+    --azur-profond: #8CC6E3;
+
+    --creme: #1B2A37;
+    --creme-ombre: #223545;
+    --roux: #E59658;
+    --roux-pale: #4A3526;
+    --roux-texte: #F0B98A;
+
+    --framboise: #F08FAB;
+    --framboise-pale: #4A2634;
+
+    --encre: #EDE9E3;
+    --encre-douce: #A9B6C1;
+
+    --ciel-haut: #1B3347;
+    --verre: rgba(27, 42, 55, 0.82);
+    --ombre: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+    --ombre-haute: 0 2px 4px rgba(0, 0, 0, 0.35), 0 18px 36px -14px rgba(0, 0, 0, 0.7);
+    --nuage: #7E9AB0;
+
+    color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
 
 body {
     margin: 0;
     background: var(--brume);
-    background-image: linear-gradient(180deg, var(--azur-pale) 0, var(--brume) 480px);
+    background-image: linear-gradient(180deg, var(--ciel-haut) 0, var(--brume) 520px);
     background-repeat: no-repeat;
     color: var(--encre);
     font-family: var(--sans);
@@ -63,6 +102,7 @@ h1, h2, h3, h4 {
     line-height: 1.2;
     margin: 0;
     color: var(--encre);
+    text-wrap: balance;
 }
 
 h1 { font-size: clamp(2rem, 4.5vw, 2.8rem); font-weight: 400; letter-spacing: -0.01em; }
@@ -70,13 +110,15 @@ h2 { font-size: 1.65rem; }
 h3 { font-size: 1.25rem; }
 h4 { font-size: 1.05rem; }
 
-p { margin: 0 0 1em; }
+p { margin: 0 0 1em; text-wrap: pretty; }
 
 a {
     color: var(--azur-profond);
     text-underline-offset: 3px;
 }
 a:hover { color: var(--framboise); }
+
+::selection { background: var(--framboise-pale); color: var(--encre); }
 
 :focus-visible {
     outline: 3px solid var(--azur);

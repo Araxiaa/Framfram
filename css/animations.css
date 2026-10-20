@@ -30,7 +30,7 @@
     position: absolute;
     left: -50vw;
     border-radius: 999px;
-    background: #fff;
+    background: var(--nuage);
     opacity: var(--opacite, 0.4);
     filter: blur(24px);
     animation: derive var(--duree, 140s) linear var(--decalage, 0s) infinite;

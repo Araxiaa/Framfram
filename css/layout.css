@@ -2,10 +2,14 @@
    LAYOUT — en-tête, menu, pied de page, structure des pages.
    ========================================================================== */
 
-/* ---------- En-tête ---------- */
+/* ---------- En-tête (reste visible, légèrement translucide) ---------- */
 .site-header {
-    position: relative;
-    background: var(--creme);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--verre);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    backdrop-filter: blur(14px) saturate(1.3);
     border-bottom: 1px solid var(--brume-profonde);
 }
 
@@ -13,22 +17,24 @@
 .site-header::before {
     content: "";
     display: block;
-    height: 10px;
+    height: 6px;
     background: var(--pelage);
 }
 
 .site-header .barre {
-    max-width: 1080px;
+    max-width: 1120px;
     margin: 0 auto;
-    padding: 14px 24px;
+    padding: 10px 24px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px 32px;
-    flex-wrap: wrap;
+    gap: 8px 24px;
 }
 
 .marque {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: auto;
     font-family: var(--serif);
     font-size: 1.15rem;
     font-weight: 500;
@@ -37,6 +43,7 @@
     white-space: nowrap;
 }
 .marque:hover { color: var(--framboise); }
+.marque svg { width: 26px; height: 26px; flex: none; }
 
 .menu {
     display: flex;
@@ -44,17 +51,14 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    overflow-x: auto;
-    max-width: 100%;
-    scrollbar-width: thin;
 }
 
 .menu a {
     display: block;
-    padding: 8px 12px;
+    padding: 7px 12px;
     border-radius: 999px;
     color: var(--encre-douce);
-    font-size: 0.95rem;
+    font-size: 0.93rem;
     font-weight: 500;
     text-decoration: none;
     white-space: nowrap;
@@ -65,21 +69,61 @@
     color: var(--framboise);
 }
 
+/* Boutons ronds : thème et menu mobile */
+.bouton-rond {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--brume-profonde);
+    border-radius: 50%;
+    background: var(--creme);
+    color: var(--encre-douce);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+.bouton-rond:hover { color: var(--framboise); border-color: var(--framboise); }
+.bouton-rond:active { transform: scale(0.94); }
+.bouton-rond svg { width: 20px; height: 20px; }
+.bouton-menu { display: none; }
+
+/* Soleil / lune : l'icône montrée dépend du thème */
+.bouton-theme .i-soleil { display: none; }
+:root[data-theme="dark"] .bouton-theme .i-soleil { display: block; }
+:root[data-theme="dark"] .bouton-theme .i-lune { display: none; }
+
+/* Menu replié sur téléphone / petite tablette */
+@media (max-width: 1180px) {
+    .bouton-menu { display: grid; }
+    .site-header .barre { flex-wrap: wrap; }
+    .site-header nav { order: 5; flex-basis: 100%; display: none; }
+    .site-header.ouvert nav { display: block; }
+    .menu {
+        flex-direction: column;
+        padding: 6px 0 10px;
+        gap: 2px;
+    }
+    .menu a { padding: 11px 14px; border-radius: var(--rayon-s); font-size: 1rem; }
+}
+
 /* ---------- Structure ---------- */
 .conteneur {
-    max-width: 1080px;
+    max-width: 1120px;
     margin: 0 auto;
     padding: 0 24px;
 }
 
 main { padding-bottom: 40px; }
 
-.tete-page { padding: 56px 0 8px; }
+.tete-page { padding: 64px 0 8px; }
 .tete-page .intro {
-    margin: 12px 0 0;
+    margin: 14px 0 0;
     max-width: var(--mesure);
     font-family: var(--serif);
     font-style: italic;
+    font-size: 1.1rem;
     color: var(--encre-douce);
 }
 
@@ -89,10 +133,10 @@ main { padding-bottom: 40px; }
     border: 0;
     border-radius: 999px;
     background: var(--pelage);
-    margin: 22px 0 0;
+    margin: 24px 0 0;
 }
 
-.section { margin-top: 56px; }
+.section { margin-top: 64px; }
 .section > h2 { margin-bottom: 20px; }
 
 /* Texte + encart latéral */
@@ -105,7 +149,7 @@ main { padding-bottom: 40px; }
 }
 .encart-lateral {
     position: sticky;
-    top: 24px;
+    top: 96px;
     display: grid;
     gap: 20px;
 }
@@ -115,14 +159,32 @@ main { padding-bottom: 40px; }
     .encart-lateral { position: static; }
 }
 
+@media (max-width: 600px) {
+    .conteneur, .site-header .barre { padding-left: 16px; padding-right: 16px; }
+    .tete-page { padding-top: 40px; }
+    .marque { font-size: 1rem; gap: 8px; }
+    .marque svg { width: 22px; height: 22px; }
+    .site-header .barre { gap: 8px 10px; }
+    .section { margin-top: 48px; }
+}
+
 /* ---------- Pied de page ---------- */
 .site-footer {
-    margin-top: 72px;
-    padding: 32px 24px 40px;
+    margin-top: 80px;
+    padding: 36px 24px 44px;
     text-align: center;
     color: var(--encre-douce);
     font-size: 0.9rem;
     border-top: 1px solid var(--brume-profonde);
     background: var(--creme);
+}
+.site-footer::before {
+    content: "";
+    display: block;
+    width: 120px;
+    height: 4px;
+    margin: -38px auto 28px;
+    border-radius: 999px;
+    background: var(--pelage);
 }
 .site-footer p { margin: 0 0 4px; }

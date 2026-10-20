@@ -22,6 +22,7 @@
     border: 1px solid var(--brume-profonde);
     border-radius: var(--rayon-l);
     padding: 28px 32px;
+    box-shadow: var(--ombre);
 }
 .panneau > h2, .panneau > h3 { margin-bottom: 14px; }
 
@@ -34,7 +35,11 @@ details.accordeon {
     background: var(--creme);
     border: 1px solid var(--brume-profonde);
     border-radius: var(--rayon-m);
+    box-shadow: var(--ombre);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
+details.accordeon:hover { border-color: var(--azur); }
+details.accordeon[open] { box-shadow: var(--ombre-haute); }
 
 details.accordeon > summary {
     list-style: none;
@@ -87,7 +92,7 @@ details.accordeon > summary:hover { color: var(--framboise); }
 }
 .pastille.defaut { background: var(--framboise-pale); color: var(--framboise); }
 .pastille.neutre { background: var(--creme-ombre); color: var(--encre-douce); }
-.pastille.roux   { background: var(--roux-pale);    color: #8A4A17; }
+.pastille.roux   { background: var(--roux-pale);    color: var(--roux-texte); }
 
 /* ---------- Légende / liste de définitions ---------- */
 .fiche-dl { margin: 0; display: grid; gap: 0; }
@@ -168,8 +173,8 @@ details.accordeon > summary:hover { color: var(--framboise); }
     overflow: hidden;
     display: grid;
     place-items: center;
-    background: linear-gradient(180deg, #A9CDE3 0%, var(--azur-pale) 70%, var(--creme) 100%);
-    box-shadow: 0 0 0 10px var(--creme), 0 0 0 11px var(--brume-profonde);
+    background: linear-gradient(180deg, var(--azur) 0%, var(--azur-pale) 70%, var(--creme) 100%);
+    box-shadow: 0 0 0 10px var(--creme), 0 0 0 11px var(--brume-profonde), var(--ombre-haute);
     font-family: var(--serif);
     font-size: 6rem;
     color: var(--azur-profond);
@@ -184,3 +189,52 @@ details.accordeon > summary:hover { color: var(--framboise); }
     object-position: center top;
 }
 
+
+/* ---------- Boutons ---------- */
+.bouton {
+    display: inline-block;
+    padding: 11px 24px;
+    border-radius: 999px;
+    background: var(--framboise);
+    color: var(--creme);
+    font-weight: 600;
+    font-size: 0.97rem;
+    text-decoration: none;
+    box-shadow: var(--ombre);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+:root[data-theme="dark"] .bouton { color: #2A1620; }
+.bouton:hover { color: var(--creme); transform: translateY(-2px); box-shadow: var(--ombre-haute); }
+:root[data-theme="dark"] .bouton:hover { color: #2A1620; }
+.bouton-clair {
+    background: var(--creme);
+    color: var(--encre);
+    border: 1px solid var(--brume-profonde);
+}
+.bouton-clair:hover, :root[data-theme="dark"] .bouton-clair, :root[data-theme="dark"] .bouton-clair:hover { color: var(--framboise); }
+
+/* ---------- Cartes cliquables ---------- */
+.carte-lien {
+    position: relative;
+    display: block;
+    padding: 22px 24px 20px;
+    background: var(--creme);
+    border: 1px solid var(--brume-profonde);
+    border-radius: var(--rayon-m);
+    box-shadow: var(--ombre);
+    color: var(--encre);
+    text-decoration: none;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.carte-lien:hover { color: var(--encre); transform: translateY(-4px); box-shadow: var(--ombre-haute); border-color: var(--framboise); }
+.carte-lien h3 { margin-bottom: 6px; }
+.carte-lien p { margin: 0; padding-right: 24px; color: var(--encre-douce); font-size: 0.97rem; line-height: 1.5; }
+.carte-fleche {
+    position: absolute;
+    right: 20px;
+    bottom: 16px;
+    color: var(--framboise);
+    font-size: 1.2rem;
+    transition: transform 0.25s ease;
+}
+.carte-lien:hover .carte-fleche { transform: translateX(5px); }
