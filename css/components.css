@@ -2,12 +2,36 @@
    COMPOSANTS — briques réutilisées sur plusieurs pages.
    ========================================================================== */
 
+/* ---------- Lavis d'aquarelle : taches de couleur en arrière-plan ----------
+   <span class="lavis lavis-azur" style="top:..;left:..;width:..;height:.."></span> */
+.lavis {
+    position: absolute;
+    z-index: -1;
+    border-radius: 47% 53% 58% 42% / 51% 44% 56% 49%;
+    opacity: 0.55;
+    filter: url(#aquarelle) blur(10px);
+    pointer-events: none;
+}
+.lavis-azur      { background: radial-gradient(closest-side, #A9D2E6, transparent 92%); }
+.lavis-sauge     { background: radial-gradient(closest-side, #B5C9A8, transparent 92%); }
+.lavis-framboise { background: radial-gradient(closest-side, #E9A9BC, transparent 92%); }
+.lavis-roux      { background: radial-gradient(closest-side, #F0C9A2, transparent 92%); }
+:root[data-theme="dark"] .lavis { opacity: 0.28; }
+
 /* ---------- Texte courant ---------- */
-.prose > h2 { margin-bottom: 18px; }
 .prose p { max-width: var(--mesure); }
 .prose p:last-child { margin-bottom: 0; }
 
-/* Phrase d'introduction sous un titre de section */
+/* Première lettre en grand, comme dans un livre enluminé */
+.lettrine > p:first-of-type::first-letter {
+    float: left;
+    margin: 0.06em 0.12em 0 0;
+    font-family: var(--serif);
+    font-size: 3.7em;
+    line-height: 0.82;
+    color: var(--framboise);
+}
+
 .chapeau {
     max-width: var(--mesure);
     margin: 0 0 20px;
@@ -16,21 +40,80 @@
     color: var(--encre-douce);
 }
 
-/* ---------- Panneau (surface crème) ---------- */
-.panneau {
+/* ---------- Boutons ---------- */
+.bouton {
+    display: inline-block;
+    padding: 12px 26px;
+    border: 0;
+    border-radius: 999px;
+    background: var(--framboise);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.97rem;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: var(--ombre);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+:root[data-theme="dark"] .bouton { color: #2A1620; }
+.bouton:hover { color: #fff; transform: translateY(-2px); box-shadow: var(--ombre-haute); }
+:root[data-theme="dark"] .bouton:hover { color: #2A1620; }
+.bouton-clair {
+    background: var(--creme);
+    color: var(--encre);
+    border: 1px solid var(--brume-profonde);
+}
+.bouton-clair:hover, :root[data-theme="dark"] .bouton-clair, :root[data-theme="dark"] .bouton-clair:hover { color: var(--framboise); }
+.bouton-petit { padding: 7px 16px; font-size: 0.9rem; }
+button.bouton:disabled { opacity: 0.55; cursor: default; transform: none; }
+
+/* ---------- Pastilles ---------- */
+.pastilles { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.pastille {
+    display: inline-block;
+    padding: 2px 12px;
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    background: var(--azur-pale);
+    color: var(--azur-profond);
+}
+.pastille.defaut { background: var(--framboise-pale); color: var(--framboise); }
+.pastille.neutre { background: var(--creme-ombre); color: var(--encre-douce); }
+.pastille.roux   { background: var(--roux-pale);    color: var(--roux-texte); }
+.pastille.sauge  { background: var(--sauge-pale);   color: var(--foret); }
+
+/* ---------- Carte de papier ---------- */
+.carte {
+    position: relative;
+    padding: 28px 30px;
     background: var(--creme);
     border: 1px solid var(--brume-profonde);
     border-radius: var(--rayon-l);
-    padding: 28px 32px;
     box-shadow: var(--ombre);
 }
-.panneau > h2, .panneau > h3 { margin-bottom: 14px; }
+.carte > h3, .carte > h4 { margin-bottom: 10px; }
+.carte p:last-child { margin-bottom: 0; }
 
-.panneau-etroit { padding: 20px 22px; border-radius: var(--rayon-m); }
+/* Annotation écrite à la main */
+.note-main { font-family: var(--main); font-size: 1.35rem; line-height: 1.1; color: var(--framboise); }
+
+/* ---------- Liste de définitions ---------- */
+.fiche-dl { margin: 0; display: grid; }
+.fiche-dl > div {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px dashed var(--brume-profonde);
+}
+.fiche-dl > div:last-child { border-bottom: 0; }
+.fiche-dl dt { color: var(--encre-douce); font-size: 0.93rem; }
+.fiche-dl dd { margin: 0; font-weight: 600; }
 
 /* ---------- Accordéons ---------- */
 .accordeons { display: grid; gap: 12px; }
-
 details.accordeon {
     background: var(--creme);
     border: 1px solid var(--brume-profonde);
@@ -38,21 +121,18 @@ details.accordeon {
     box-shadow: var(--ombre);
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-details.accordeon:hover { border-color: var(--azur); }
+details.accordeon:hover { border-color: var(--sauge); }
 details.accordeon[open] { box-shadow: var(--ombre-haute); }
-
 details.accordeon > summary {
     list-style: none;
     cursor: pointer;
-    padding: 16px 52px 16px 22px;
+    padding: 16px 54px 16px 22px;
     position: relative;
     font-family: var(--serif);
     font-size: 1.12rem;
     font-weight: 500;
 }
 details.accordeon > summary::-webkit-details-marker { display: none; }
-
-/* Chevron : tourne quand on ouvre */
 details.accordeon > summary::after {
     content: "";
     position: absolute;
@@ -68,58 +148,15 @@ details.accordeon > summary::after {
 details.accordeon[open] > summary::after { transform: translateY(-30%) rotate(225deg); }
 details.accordeon[open] > summary { border-bottom: 1px solid var(--brume-profonde); }
 details.accordeon > summary:hover { color: var(--framboise); }
-
-.accordeon-corps { padding: 20px 22px 8px; }
+.accordeon-corps { padding: 18px 22px 8px; }
 .accordeon-corps p { max-width: var(--mesure); }
-.accordeon-corps h4 { margin: 0 0 4px; color: var(--framboise); }
-.accordeon-corps h4:not(:first-child) {
-    margin-top: 22px;
-    padding-top: 18px;
-    border-top: 1px solid var(--brume-profonde);
-}
 
-/* ---------- Pastilles ---------- */
-.pastilles { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
-
-.pastille {
-    display: inline-block;
-    padding: 3px 12px;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    background: var(--azur-pale);
-    color: var(--azur-profond);
-}
-.pastille.defaut { background: var(--framboise-pale); color: var(--framboise); }
-.pastille.neutre { background: var(--creme-ombre); color: var(--encre-douce); }
-.pastille.roux   { background: var(--roux-pale);    color: var(--roux-texte); }
-
-/* ---------- Légende / liste de définitions ---------- */
-.fiche-dl { margin: 0; display: grid; gap: 0; }
-.fiche-dl > div {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--brume-profonde);
-}
-.fiche-dl > div:last-child { border-bottom: 0; }
-.fiche-dl dt { color: var(--encre-douce); font-size: 0.95rem; }
-.fiche-dl dd { margin: 0; font-weight: 500; }
-
-.sous-titre-encart {
-    font-family: var(--serif);
-    font-size: 1.05rem;
-    font-weight: 500;
-    margin: 0 0 12px;
-}
-
-/* ---------- Avatar (photo ou initiale) ---------- */
+/* ---------- Avatar (photo ronde cerclée d'aquarelle, ou initiale) ---------- */
 .avatar {
     position: relative;
     flex: none;
-    width: 64px;
-    height: 64px;
+    width: 68px;
+    height: 68px;
     border-radius: 50%;
     overflow: hidden;
     display: grid;
@@ -127,114 +164,47 @@ details.accordeon > summary:hover { color: var(--framboise); }
     background: var(--azur-pale);
     color: var(--azur-profond);
     font-family: var(--serif);
-    font-size: 1.5rem;
+    font-size: 1.6rem;
+    box-shadow: 0 0 0 3px var(--creme), 0 0 0 4px var(--sauge);
 }
 .avatar::before { content: attr(data-initiale); }
-.avatar img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+.avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
-/* ---------- Coeurs de l'index des relations ---------- */
-.coeurs { white-space: nowrap; letter-spacing: 1px; }
+/* ---------- Cœurs de l'index des relations ---------- */
+.coeurs { display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; vertical-align: middle; }
+.sym { width: 1.15em; height: 1.15em; flex: none; fill: currentColor; }
+.sym-coeur  { color: var(--framboise); filter: drop-shadow(0 1px 1px rgba(178, 58, 92, 0.25)); }
+.sym-sombre { color: var(--aversion); }
+.sym-etoile { color: var(--roux); margin-left: 3px; width: 1.3em; height: 1.3em; }
+.sym-crane  { color: var(--encre-douce); margin-left: 3px; width: 1.3em; height: 1.3em; }
 
-/* ---------- Compteur de vies (accueil + page "Ses vies") ---------- */
-.points-vies {
-    display: flex;
-    gap: 8px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.point-vie {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-}
-.point-vie.plein { background: var(--azur); box-shadow: 0 0 0 3px var(--azur-pale); }
+/* ---------- Compteur de vies (points) ---------- */
+.points-vies { display: flex; gap: 8px; list-style: none; margin: 0; padding: 0; }
+.point-vie { width: 16px; height: 16px; border-radius: 50%; }
+.point-vie.plein { background: var(--azur); box-shadow: 0 0 0 3px var(--azur-pale), 0 0 12px var(--azur); }
 .point-vie.vide  { border: 2px dashed var(--encre-douce); opacity: 0.55; }
-.points-legende {
-    margin: 10px 0 0;
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--encre-douce);
-}
+.points-legende { margin: 10px 0 0; font-family: var(--serif); font-style: italic; color: var(--encre-douce); }
 
-/* ---------- Portrait dans une arche (accueil + physique) ---------- */
-.arche {
-    position: relative;
-    width: min(100%, 340px);
-    justify-self: center;
-    aspect-ratio: 4 / 5;
-    border-radius: 999px 999px 28px 28px;
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-    background: linear-gradient(180deg, var(--azur) 0%, var(--azur-pale) 70%, var(--creme) 100%);
-    box-shadow: 0 0 0 10px var(--creme), 0 0 0 11px var(--brume-profonde), var(--ombre-haute);
-    font-family: var(--serif);
-    font-size: 6rem;
-    color: var(--azur-profond);
-}
-.arche::before { content: attr(data-initiale); }
-.arche img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-}
-
-
-/* ---------- Boutons ---------- */
-.bouton {
-    display: inline-block;
-    padding: 11px 24px;
+/* ---------- Jauge de caractéristique ---------- */
+.jauges { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.jauge { display: grid; grid-template-columns: 96px 1fr; align-items: center; gap: 12px; font-size: 0.95rem; }
+.jauge-piste { display: flex; gap: 5px; }
+.jauge-piste i {
+    flex: 1;
+    height: 10px;
     border-radius: 999px;
-    background: var(--framboise);
-    color: var(--creme);
-    font-weight: 600;
-    font-size: 0.97rem;
-    text-decoration: none;
-    box-shadow: var(--ombre);
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-}
-:root[data-theme="dark"] .bouton { color: #2A1620; }
-.bouton:hover { color: var(--creme); transform: translateY(-2px); box-shadow: var(--ombre-haute); }
-:root[data-theme="dark"] .bouton:hover { color: #2A1620; }
-.bouton-clair {
-    background: var(--creme);
-    color: var(--encre);
+    background: var(--creme-ombre);
     border: 1px solid var(--brume-profonde);
 }
-.bouton-clair:hover, :root[data-theme="dark"] .bouton-clair, :root[data-theme="dark"] .bouton-clair:hover { color: var(--framboise); }
+.jauge-piste i.plein { background: linear-gradient(90deg, var(--roux), var(--framboise)); border-color: transparent; }
 
-/* ---------- Cartes cliquables ---------- */
-.carte-lien {
-    position: relative;
+/* ---------- Séparateur : une liane qui ondule ---------- */
+.liane {
     display: block;
-    padding: 22px 24px 20px;
-    background: var(--creme);
-    border: 1px solid var(--brume-profonde);
-    border-radius: var(--rayon-m);
-    box-shadow: var(--ombre);
-    color: var(--encre);
-    text-decoration: none;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    width: 100%;
+    max-width: 360px;
+    height: 24px;
+    margin: 0 auto;
+    color: var(--mousse);
+    opacity: 0.8;
 }
-.carte-lien:hover { color: var(--encre); transform: translateY(-4px); box-shadow: var(--ombre-haute); border-color: var(--framboise); }
-.carte-lien h3 { margin-bottom: 6px; }
-.carte-lien p { margin: 0; padding-right: 24px; color: var(--encre-douce); font-size: 0.97rem; line-height: 1.5; }
-.carte-fleche {
-    position: absolute;
-    right: 20px;
-    bottom: 16px;
-    color: var(--framboise);
-    font-size: 1.2rem;
-    transition: transform 0.25s ease;
-}
-.carte-lien:hover .carte-fleche { transform: translateX(5px); }

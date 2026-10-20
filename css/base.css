@@ -1,20 +1,27 @@
 /* ==========================================================================
-   BASE — couleurs, polices, réglages de lecture.
+   BASE — couleurs, polices, papier aquarelle.
    C'est ici qu'on change l'identité visuelle du site.
    Les polices sont chargées par les <link> dans le <head> de chaque page.
    ========================================================================== */
 
 :root {
-    /* Le ciel d'été de ses yeux */
-    --brume: #E6ECF1;            /* fond de page */
-    --brume-profonde: #CFDAE4;   /* filets, bordures */
-    --azur: #6FAFD0;
-    --azur-pale: #D9EAF3;
-    --azur-profond: #2F6F95;     /* liens, focus */
+    /* Le papier et la forêt du Tonnerre */
+    --brume: #F5EFDF;            /* fond de page : papier chaud */
+    --brume-profonde: #DDD3BB;   /* filets, bordures */
+    --creme: #FCF8EE;            /* surfaces : cartes */
+    --creme-ombre: #EEE6D1;
 
-    /* Son pelage red point : blanc crème, extrémités rousses */
-    --creme: #FBF7F0;            /* surfaces */
-    --creme-ombre: #F1EADD;
+    --sauge: #B5C9A8;
+    --sauge-pale: #DFE9D3;
+    --mousse: #5E8061;
+    --foret: #2F4B3F;
+
+    /* Ses yeux d'azur */
+    --azur: #6FAFD0;
+    --azur-pale: #DCEBEF;
+    --azur-profond: #2C6A8C;
+
+    /* Son pelage red point */
     --roux: #D9803E;
     --roux-pale: #F3D9C2;
     --roux-texte: #8A4A17;
@@ -24,23 +31,26 @@
     --framboise-pale: #F6DDE4;
 
     /* Texte */
-    --encre: #2A2730;
-    --encre-douce: #5B5763;
+    --encre: #27342E;
+    --encre-douce: #5A6A60;
+    --aversion: #5B4A6B;         /* cœur sombre */
 
     /* Effets */
-    --ciel-haut: #CFE3F0;                          /* haut du dégradé de page */
-    --verre: rgba(251, 247, 240, 0.82);            /* en-tête translucide */
-    --ombre: 0 1px 2px rgba(42, 39, 48, 0.05), 0 8px 24px -12px rgba(47, 111, 149, 0.28);
-    --ombre-haute: 0 2px 4px rgba(42, 39, 48, 0.06), 0 18px 36px -14px rgba(47, 111, 149, 0.4);
+    --ciel-haut: #E3EBDA;
+    --verre: rgba(252, 248, 238, 0.78);
+    --ombre: 0 1px 2px rgba(39, 52, 46, 0.06), 0 10px 26px -14px rgba(47, 75, 63, 0.35);
+    --ombre-haute: 0 2px 4px rgba(39, 52, 46, 0.08), 0 22px 40px -16px rgba(47, 75, 63, 0.5);
     --nuage: #fff;
+    --grain: 0.5;                /* intensité du grain de papier */
 
     --serif: 'Fraunces', Georgia, 'Times New Roman', serif;
     --sans: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --main: 'Caveat', 'Segoe Print', cursive;   /* annotations écrites à la main */
 
-    --mesure: 68ch;
-    --rayon-l: 24px;
-    --rayon-m: 14px;
-    --rayon-s: 8px;
+    --mesure: 66ch;
+    --rayon-l: 28px;
+    --rayon-m: 16px;
+    --rayon-s: 10px;
 
     /* Signature : la couleur n'existe qu'aux extrémités */
     --pelage: linear-gradient(90deg,
@@ -50,17 +60,23 @@
     color-scheme: light;
 }
 
-/* ---------- Thème sombre : la nuit tombe sur le Tonnerre ----------
+/* ---------- Thème sombre : la forêt la nuit ----------
    Automatique selon l'appareil, ou choisi avec le bouton du menu. */
 :root[data-theme="dark"] {
-    --brume: #14202B;
-    --brume-profonde: #2C4152;
+    --brume: #0E1A19;
+    --brume-profonde: #29403B;
+    --creme: #16262A;
+    --creme-ombre: #1D3236;
+
+    --sauge: #5E8061;
+    --sauge-pale: #1F3A33;
+    --mousse: #8FB48E;
+    --foret: #A9C9A6;
+
     --azur: #6FAFD0;
-    --azur-pale: #1F3A4D;
+    --azur-pale: #1B3A4A;
     --azur-profond: #8CC6E3;
 
-    --creme: #1B2A37;
-    --creme-ombre: #223545;
     --roux: #E59658;
     --roux-pale: #4A3526;
     --roux-texte: #F0B98A;
@@ -68,54 +84,65 @@
     --framboise: #F08FAB;
     --framboise-pale: #4A2634;
 
-    --encre: #EDE9E3;
-    --encre-douce: #A9B6C1;
+    --encre: #EEE9DD;
+    --encre-douce: #A7B7AE;
+    --aversion: #B3A2C8;
 
-    --ciel-haut: #1B3347;
-    --verre: rgba(27, 42, 55, 0.82);
-    --ombre: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
-    --ombre-haute: 0 2px 4px rgba(0, 0, 0, 0.35), 0 18px 36px -14px rgba(0, 0, 0, 0.7);
+    --ciel-haut: #12302F;
+    --verre: rgba(14, 26, 25, 0.78);
+    --ombre: 0 1px 2px rgba(0, 0, 0, 0.35), 0 10px 26px -14px rgba(0, 0, 0, 0.7);
+    --ombre-haute: 0 2px 4px rgba(0, 0, 0, 0.4), 0 22px 40px -16px rgba(0, 0, 0, 0.8);
     --nuage: #7E9AB0;
+    --grain: 0.18;
 
     color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 
 body {
     margin: 0;
     background: var(--brume);
-    background-image: linear-gradient(180deg, var(--ciel-haut) 0, var(--brume) 520px);
-    background-repeat: no-repeat;
     color: var(--encre);
     font-family: var(--sans);
     font-size: 1.0625rem;
-    line-height: 1.7;
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
+
+/* Grain de papier : une fine texture sur tout le site */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    pointer-events: none;
+    opacity: var(--grain);
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .25  0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+:root[data-theme="dark"] body::before { mix-blend-mode: screen; }
 
 h1, h2, h3, h4 {
     font-family: var(--serif);
     font-weight: 500;
-    line-height: 1.2;
+    line-height: 1.15;
     margin: 0;
     color: var(--encre);
     text-wrap: balance;
 }
 
-h1 { font-size: clamp(2rem, 4.5vw, 2.8rem); font-weight: 400; letter-spacing: -0.01em; }
-h2 { font-size: 1.65rem; }
-h3 { font-size: 1.25rem; }
-h4 { font-size: 1.05rem; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 400; letter-spacing: -0.015em; }
+h2 { font-size: clamp(1.7rem, 3.2vw, 2.3rem); font-weight: 400; letter-spacing: -0.01em; }
+h3 { font-size: 1.3rem; }
+h4 { font-size: 1.08rem; }
 
 p { margin: 0 0 1em; text-wrap: pretty; }
 
-a {
-    color: var(--azur-profond);
-    text-underline-offset: 3px;
-}
+a { color: var(--azur-profond); text-underline-offset: 3px; }
 a:hover { color: var(--framboise); }
 
 ::selection { background: var(--framboise-pale); color: var(--encre); }
@@ -135,7 +162,7 @@ img { max-width: 100%; display: block; }
     background: var(--creme);
     padding: 8px 16px;
     border-radius: var(--rayon-s);
-    z-index: 100;
+    z-index: 200;
 }
 .lien-evitement:focus { left: 8px; }
 

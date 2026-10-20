@@ -1,33 +1,27 @@
 /* ==========================================================================
-   LAYOUT — en-tête, menu, pied de page, structure des pages.
+   LAYOUT — en-tête, menu, en-tête de page, onglets, pied de page.
    ========================================================================== */
 
-/* ---------- En-tête (reste visible, légèrement translucide) ---------- */
+/* ---------- En-tête : une pastille de verre qui flotte ---------- */
 .site-header {
     position: sticky;
-    top: 0;
-    z-index: 50;
-    background: var(--verre);
-    -webkit-backdrop-filter: blur(14px) saturate(1.3);
-    backdrop-filter: blur(14px) saturate(1.3);
-    border-bottom: 1px solid var(--brume-profonde);
+    top: 12px;
+    z-index: 60;
+    max-width: 1180px;
+    margin: 12px auto 0;
+    padding: 0 12px;
 }
-
-/* Bandeau roux aux extrémités, crème au centre : sa robe red point */
-.site-header::before {
-    content: "";
-    display: block;
-    height: 6px;
-    background: var(--pelage);
-}
-
 .site-header .barre {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 10px 24px;
     display: flex;
     align-items: center;
-    gap: 8px 24px;
+    gap: 8px 14px;
+    padding: 8px 10px 8px 20px;
+    background: var(--verre);
+    -webkit-backdrop-filter: blur(16px) saturate(1.3);
+    backdrop-filter: blur(16px) saturate(1.3);
+    border: 1px solid var(--brume-profonde);
+    border-radius: 999px;
+    box-shadow: var(--ombre);
 }
 
 .marque {
@@ -36,40 +30,30 @@
     gap: 10px;
     margin-right: auto;
     font-family: var(--serif);
-    font-size: 1.15rem;
+    font-size: 1.12rem;
     font-weight: 500;
     color: var(--encre);
     text-decoration: none;
     white-space: nowrap;
 }
 .marque:hover { color: var(--framboise); }
-.marque svg { width: 26px; height: 26px; flex: none; }
+.marque svg { width: 28px; height: 28px; flex: none; }
 
-.menu {
-    display: flex;
-    gap: 2px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
+.menu { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0; }
 .menu a {
     display: block;
-    padding: 7px 12px;
+    padding: 8px 16px;
     border-radius: 999px;
     color: var(--encre-douce);
-    font-size: 0.93rem;
+    font-size: 0.97rem;
     font-weight: 500;
     text-decoration: none;
     white-space: nowrap;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
-.menu a:hover { background: var(--creme-ombre); color: var(--encre); }
-.menu a[aria-current="page"] {
-    background: var(--framboise-pale);
-    color: var(--framboise);
-}
+.menu a:hover { background: var(--sauge-pale); color: var(--foret); }
+.menu a[aria-current="page"] { background: var(--framboise-pale); color: var(--framboise); }
 
-/* Boutons ronds : thème et menu mobile */
 .bouton-rond {
     flex: none;
     width: 40px;
@@ -89,102 +73,140 @@
 .bouton-rond svg { width: 20px; height: 20px; }
 .bouton-menu { display: none; }
 
-/* Soleil / lune : l'icône montrée dépend du thème */
 .bouton-theme .i-soleil { display: none; }
 :root[data-theme="dark"] .bouton-theme .i-soleil { display: block; }
 :root[data-theme="dark"] .bouton-theme .i-lune { display: none; }
 
-/* Menu replié sur téléphone / petite tablette */
-@media (max-width: 1180px) {
+@media (max-width: 820px) {
     .bouton-menu { display: grid; }
-    .site-header .barre { flex-wrap: wrap; }
+    .site-header .barre { flex-wrap: wrap; border-radius: 28px; padding-left: 16px; }
     .site-header nav { order: 5; flex-basis: 100%; display: none; }
     .site-header.ouvert nav { display: block; }
-    .menu {
-        flex-direction: column;
-        padding: 6px 0 10px;
-        gap: 2px;
-    }
-    .menu a { padding: 11px 14px; border-radius: var(--rayon-s); font-size: 1rem; }
+    .menu { flex-direction: column; padding: 4px 0 8px; }
+    .menu a { padding: 12px 14px; border-radius: var(--rayon-s); font-size: 1.05rem; }
+    .marque { font-size: 1rem; }
 }
 
 /* ---------- Structure ---------- */
-.conteneur {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 24px;
+.conteneur { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.etroit { max-width: 820px; margin-left: auto; margin-right: auto; }
+main { position: relative; padding-bottom: 24px; overflow-x: clip; }
+
+.section { position: relative; margin-top: 110px; }
+.section > .conteneur > h2, .section-titre { margin-bottom: 14px; }
+
+/* Titre de section : petit mot manuscrit + titre + filet de feuilles */
+.surtitre {
+    display: block;
+    margin-bottom: 4px;
+    font-family: var(--main);
+    font-size: 1.5rem;
+    line-height: 1;
+    color: var(--framboise);
 }
+.entete-section { max-width: 62ch; margin-bottom: 40px; }
+.entete-section p { margin: 14px 0 0; color: var(--encre-douce); font-size: 1.1rem; }
+.entete-section.centre { margin-left: auto; margin-right: auto; text-align: center; }
 
-main { padding-bottom: 40px; }
-
-.tete-page { padding: 64px 0 8px; }
+/* ---------- En-tête d'une page intérieure ---------- */
+.tete-page { position: relative; padding-top: 76px; padding-bottom: 12px; isolation: isolate; }
+.tete-page h1 { max-width: 16ch; }
 .tete-page .intro {
-    margin: 14px 0 0;
-    max-width: var(--mesure);
+    margin: 16px 0 0;
+    max-width: 52ch;
     font-family: var(--serif);
     font-style: italic;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: var(--encre-douce);
 }
+.tete-page::after {                      /* branche posée dans le coin */
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -60px;
+    right: -40px;
+    width: min(46vw, 460px);
+    aspect-ratio: 620 / 760;
+    background: url("../assets/decor/branche.svg") no-repeat center / contain;
+    transform: scaleX(-1) rotate(-6deg);
+    transform-origin: top center;
+    opacity: 0.55;
+    pointer-events: none;
+}
+:root[data-theme="dark"] .tete-page::after { opacity: 0.3; }
 
-/* Filet "pelage" : crème au centre, roux aux bouts */
-.filet-pelage {
-    height: 4px;
+/* ---------- Onglets (sous-pages) ---------- */
+.onglets-barre {
+    position: sticky;
+    top: 82px;
+    z-index: 30;
+    display: flex;
+    gap: 6px;
+    margin: 36px 0 0;
+    padding: 6px;
+    width: fit-content;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    background: var(--verre);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--brume-profonde);
+    border-radius: 999px;
+    box-shadow: var(--ombre);
+}
+.onglets-barre::-webkit-scrollbar { display: none; }
+.onglets-barre button {
+    padding: 9px 22px;
     border: 0;
     border-radius: 999px;
-    background: var(--pelage);
-    margin: 24px 0 0;
+    background: transparent;
+    color: var(--encre-douce);
+    font: inherit;
+    font-size: 0.98rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
 }
+.onglets-barre button:hover { color: var(--foret); background: var(--sauge-pale); }
+.onglets-barre button[aria-selected="true"] { background: var(--foret); color: var(--creme); }
+:root[data-theme="dark"] .onglets-barre button[aria-selected="true"] { background: var(--mousse); color: #0E1A19; }
 
-.section { margin-top: 64px; }
-.section > h2 { margin-bottom: 20px; }
+.onglet-panneau { padding-top: 56px; }
+.onglet-panneau[hidden] { display: none; }
+.onglet-panneau:not([hidden]) { animation: onglet-entree 0.5s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@keyframes onglet-entree { from { opacity: 0; transform: translateY(14px); } }
 
-/* Texte + encart latéral */
-.deux-colonnes {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 290px;
-    gap: 48px;
-    align-items: start;
-    margin-top: 40px;
+/* ---------- Pied de page : le sous-bois ---------- */
+.site-footer {
+    position: relative;
+    margin-top: 140px;
+    padding: 72px 24px 44px;
+    text-align: center;
+    color: #E6EEDD;
+    background:
+        radial-gradient(60% 120% at 20% 0%, rgba(111, 175, 208, 0.18), transparent 60%),
+        radial-gradient(50% 100% at 85% 0%, rgba(178, 58, 92, 0.2), transparent 60%),
+        linear-gradient(180deg, #2F4B3F, #1E3329);
+    border-radius: 56px 56px 0 0;
 }
-.encart-lateral {
-    position: sticky;
-    top: 96px;
-    display: grid;
-    gap: 20px;
+.site-footer .devise-pied {
+    margin: 0 0 18px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: #F3D9C2;
 }
-
-@media (max-width: 900px) {
-    .deux-colonnes { grid-template-columns: 1fr; gap: 28px; }
-    .encart-lateral { position: static; }
-}
+.site-footer p { margin: 0 0 4px; font-size: 0.93rem; }
+.site-footer a { color: #BFE0F0; }
+.site-footer em { color: #fff; }
 
 @media (max-width: 600px) {
-    .conteneur, .site-header .barre { padding-left: 16px; padding-right: 16px; }
-    .tete-page { padding-top: 40px; }
-    .marque { font-size: 1rem; gap: 8px; }
-    .marque svg { width: 22px; height: 22px; }
-    .site-header .barre { gap: 8px 10px; }
-    .section { margin-top: 48px; }
+    .conteneur { padding-left: 18px; padding-right: 18px; }
+    .section { margin-top: 80px; }
+    .tete-page { padding-top: 48px; }
+    .onglets-barre { top: 74px; }
+    .onglets-barre button { padding: 9px 16px; }
+    .site-footer { border-radius: 36px 36px 0 0; margin-top: 100px; }
 }
-
-/* ---------- Pied de page ---------- */
-.site-footer {
-    margin-top: 80px;
-    padding: 36px 24px 44px;
-    text-align: center;
-    color: var(--encre-douce);
-    font-size: 0.9rem;
-    border-top: 1px solid var(--brume-profonde);
-    background: var(--creme);
-}
-.site-footer::before {
-    content: "";
-    display: block;
-    width: 120px;
-    height: 4px;
-    margin: -38px auto 28px;
-    border-radius: 999px;
-    background: var(--pelage);
-}
-.site-footer p { margin: 0 0 4px; }
