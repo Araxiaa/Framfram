@@ -7,5 +7,5 @@
         : !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
     document.documentElement.setAttribute('data-theme', sombre ? 'dark' : 'light');
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', sombre ? '#14202B' : '#E6ECF1');
+    if (meta) meta.setAttribute('content', sombre ? '#0E1A19' : '#F5EFDF');
 })();
