@@ -52,7 +52,10 @@
     border: 1px solid var(--brume-profonde);
     border-radius: var(--rayon-m);
     position: relative;
+    box-shadow: var(--ombre);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
+.fiche-chat:hover { transform: translateY(-3px); box-shadow: var(--ombre-haute); }
 .fiche-chat .avatar { width: 72px; height: 72px; margin-bottom: 8px; }
 .fiche-chat h4 { font-size: 1rem; }
 .fiche-role { margin: 0; font-size: 0.9rem; color: var(--encre-douce); }
@@ -96,7 +99,8 @@
     width: 200px;
     border-color: var(--framboise);
     border-width: 2px;
-    background: #FFFDF9;
+    background: var(--creme);
+    box-shadow: var(--ombre-haute);
 }
 .fiche-chat.statut-heros .avatar {
     width: 96px;

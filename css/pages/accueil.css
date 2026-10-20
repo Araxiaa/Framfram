@@ -7,7 +7,7 @@
     grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
     gap: 56px;
     align-items: center;
-    padding: 72px 0 8px;
+    padding: 88px 0 8px;
 }
 
 .hero h1 {
@@ -27,6 +27,14 @@
 .fonction { margin: 0; color: var(--encre-douce); }
 
 .hero-vies { margin-top: 36px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 0; }
+
+/* Cartes « Explorer » */
+.explorer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 18px;
+}
 
 @media (max-width: 800px) {
     .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 48px; }

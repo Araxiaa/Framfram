@@ -41,3 +41,50 @@
     background: var(--creme-ombre);
     overflow-wrap: anywhere;
 }
+
+/* ---------- Visionneuse (image en grand) ---------- */
+.oeuvre { box-shadow: var(--ombre); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.oeuvre:hover { transform: translateY(-4px); box-shadow: var(--ombre-haute); }
+.oeuvre a { cursor: zoom-in; }
+
+.visionneuse {
+    width: min(96vw, 1100px);
+    max-height: 94vh;
+    padding: 0;
+    border: 0;
+    border-radius: var(--rayon-l);
+    background: var(--creme);
+    color: var(--encre);
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+.visionneuse::backdrop { background: rgba(14, 24, 33, 0.82); backdrop-filter: blur(4px); }
+.visionneuse[open] { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; }
+.visionneuse figure { margin: 0; display: grid; justify-items: center; gap: 12px; padding: 20px 0; min-width: 0; }
+.visionneuse img { max-height: calc(94vh - 110px); width: auto; max-width: 100%; border-radius: var(--rayon-m); }
+.visionneuse figcaption { padding: 0 12px; text-align: center; color: var(--encre-douce); }
+.visionneuse figcaption strong { font-family: var(--serif); font-weight: 500; color: var(--encre); }
+
+.vis-fermer, .vis-nav {
+    border: 0;
+    background: transparent;
+    color: var(--encre-douce);
+    cursor: pointer;
+    font-size: 2.2rem;
+    line-height: 1;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+.vis-nav { align-self: stretch; padding: 0 14px; }
+.vis-nav:hover, .vis-fermer:hover { color: var(--framboise); background: var(--creme-ombre); }
+.vis-fermer {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--creme);
+    box-shadow: var(--ombre);
+}
+@media (max-width: 600px) { .vis-nav { padding: 0 6px; font-size: 1.8rem; } }
