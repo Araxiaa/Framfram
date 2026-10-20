@@ -1,6 +1,6 @@
 /* Galerie — construit la grille à partir de js/data/galerie.js
    et ouvre chaque œuvre en grand dans une visionneuse (flèches du clavier, Échap). */
-(function () {
+window.Donnees.pret(function () {
     'use strict';
     var O = window.Outils;
     var grille = document.getElementById('galerie-grille');
@@ -11,7 +11,7 @@
         var url = O.urlPhoto(g.fichier);
         return '<figure class="oeuvre">' +
             '<a href="' + url + '" data-i="' + i + '" aria-label="Agrandir : ' + O.esc(g.titre) + ' par ' + O.esc(g.auteur) + '">' +
-                '<img src="' + url + '" alt="' + O.esc(g.alt || g.titre) + '" loading="lazy">' +
+                '<img src="' + url + '" alt="' + O.esc(g.alt || g.titre) + '" decoding="async">' +
             '</a>' +
             '<figcaption><strong>' + O.esc(g.titre) + '</strong>Par ' + O.esc(g.auteur) + '</figcaption>' +
         '</figure>';
@@ -69,4 +69,4 @@
         if (e.key === 'ArrowLeft') afficher(courant - 1);
         else if (e.key === 'ArrowRight') afficher(courant + 1);
     });
-})();
+});
