@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Étoile de Framboisier — Meneur du Tonnerre</title>
     <meta name="description" content="Codex d'Étoile de Framboisier, meneur du Clan du Tonnerre : fiche, charte, caractère, lignée et histoire de ce personnage de RP Warrior Cats.">
-    <meta name="theme-color" content="#E6ECF1">
+    <meta name="theme-color" content="#F5EFDF">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Figtree:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Figtree:wght@400;500;600&family=Caveat:wght@500;600&display=swap">
     <script src="js/theme.js"></script>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/layout.css">
@@ -22,104 +22,107 @@
 
     <main id="contenu">
 
-        <div class="conteneur">
-            <section class="hero">
-                <div>
+        <!-- ===== Le héros ===== -->
+        <section class="hero">
+            <span class="lavis lavis-azur"      style="top:-8%;  left:38%; width:640px; height:560px"></span>
+            <span class="lavis lavis-framboise" style="top:30%;  left:62%; width:520px; height:460px"></span>
+            <span class="lavis lavis-sauge"     style="top:46%;  left:-6%; width:560px; height:440px"></span>
+            <img class="hero-branche hero-branche-g" src="assets/decor/branche.svg" alt="" width="620" height="760" fetchpriority="low">
+            <img class="hero-branche hero-branche-d" src="assets/decor/branche.svg" alt="" width="620" height="760" fetchpriority="low">
+
+            <div class="conteneur hero-grille">
+                <div class="hero-texte">
+                    <span class="surtitre" id="hero-fonction">Meneur du Clan du Tonnerre</span>
                     <h1>Étoile de<br>Framboisier</h1>
-                    <p class="devise">« Le roc au regard d'azur »</p>
-                    <p class="fonction">Meneur du Clan du Tonnerre</p>
+                    <p class="devise" id="hero-devise">« Le roc au regard d'azur »</p>
                     <div class="hero-vies" id="compteur-vies"></div>
                     <p class="hero-actions">
                         <a class="bouton" href="histoire.html">Découvrir son histoire</a>
-                        <a class="bouton bouton-clair" href="#charte">Lire la charte</a>
+                        <a class="bouton bouton-clair" href="#charte">Lire sa charte</a>
                     </p>
                 </div>
-                <div class="arche" data-initiale="É">
-                    <img src="assets/photos/Headshot%20Etoile%20de%20Framboisier%20Oriyakii.webp" alt="Portrait d'Étoile de Framboisier" width="680" height="850" fetchpriority="high">
+
+                <figure class="hero-portrait">
+                    <div class="portrait-cadre" data-initiale="É">
+                        <img src="assets/photos/Headshot%20Etoile%20de%20Framboisier%20Oriyakii.webp" alt="Portrait d'Étoile de Framboisier" width="680" height="680" fetchpriority="high">
+                    </div>
+                    <figcaption class="note-main">dessiné par @Oriyakii</figcaption>
+                </figure>
+            </div>
+
+            <a class="defiler" href="#fiche" aria-label="Descendre">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </a>
+        </section>
+
+        <!-- ===== Fiche rapide ===== -->
+        <section class="section" id="fiche">
+            <div class="conteneur">
+                <div class="entete-section">
+                    <span class="surtitre">En quelques mots</span>
+                    <h2>La fiche du Meneur</h2>
                 </div>
-            </section>
-        </div>
+                <ul class="galets" id="fiche-galets"></ul>
+            </div>
+        </section>
 
-        <div class="conteneur">
+        <!-- ===== Le mur des lunes ===== -->
+        <section class="section" id="mur-section" hidden>
+            <div class="conteneur">
+                <div class="entete-section entete-mur">
+                    <div>
+                        <span class="surtitre">Lune après lune</span>
+                        <h2>Le mur des lunes</h2>
+                    </div>
+                    <div class="mur-fleches">
+                        <button type="button" class="bouton-rond" id="mur-prec" aria-label="Souvenirs précédents">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+                        </button>
+                        <button type="button" class="bouton-rond" id="mur-suiv" aria-label="Souvenirs suivants">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="mur" id="mur" tabindex="0" aria-label="Frise des souvenirs, à faire défiler"></div>
+        </section>
 
-            <section class="section">
-                <h2>Explorer le codex</h2>
+        <!-- ===== La charte ===== -->
+        <section class="section" id="charte">
+            <div class="conteneur">
+                <div class="entete-section">
+                    <span class="surtitre">Gravée dans l'écorce</span>
+                    <h2 id="charte-titre">L'Écorce de la Concorde</h2>
+                    <p id="charte-intro"></p>
+                </div>
+                <div class="ecorce">
+                    <ol class="articles" id="charte-articles"></ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Explorer ===== -->
+        <section class="section">
+            <div class="conteneur">
+                <div class="entete-section">
+                    <span class="surtitre">Suivre le sentier</span>
+                    <h2>Explorer le codex</h2>
+                </div>
                 <div class="explorer" id="explorer"></div>
-            </section>
+            </div>
+        </section>
 
-            <section class="section">
-                <h2>Fiche rapide</h2>
-                <div class="panneau">
-                    <dl class="fiche-dl en-colonnes">
-                        <div><dt>Clan</dt><dd>Clan du Tonnerre</dd></div>
-                        <div><dt>Rang</dt><dd>Meneur</dd></div>
-                        <div><dt>Âge</dt><dd>22 lunes</dd></div>
-                        <div><dt>Vies</dt><dd>8 sur 9</dd></div>
-                        <div><dt>Stature</dt><dd>Colosse, 40 cm au garrot</dd></div>
-                        <div><dt>Poids</dt><dd>6 kg, rocher de muscles</dd></div>
-                        <div><dt>Pelage</dt><dd>Mi-long, dense et protecteur</dd></div>
-                        <div><dt>Gènes</dt><dd>Colourpoint roux (Red Point)</dd></div>
-                        <div><dt>Regard</dt><dd>Bleu clair cristallin</dd></div>
-                        <div><dt>Endurance</dt><dd>Limitée</dd></div>
-                    </dl>
+        <!-- ===== Dernières lunes ===== -->
+        <section class="section" id="recent-section" hidden>
+            <div class="conteneur">
+                <div class="entete-section">
+                    <span class="surtitre">Au fil des lunes</span>
+                    <h2>Derniers sujets joués</h2>
                 </div>
-            </section>
+                <div class="recents" id="recents"></div>
+            </div>
+        </section>
 
-            <section class="section" id="charte">
-                <h2>L'Écorce de la Concorde</h2>
-                <p class="chapeau">
-                    Établie à ses 20 lunes, cette charte dicte la conduite des guerriers du Tonnerre sous le règne d'Étoile de Framboisier.
-                </p>
-
-                <div class="panneau">
-                    <ol class="charte">
-                        <li>
-                            <span class="charte-num">I</span>
-                            <div>
-                                <h3>La Loi du Premier Sang <small>pacifisme absolu</small></h3>
-                                <p>La griffe ne doit jamais être la réponse à un miaulement. Il est formellement interdit d'engager le combat en premier. La force brute doit servir de bouclier, jamais de fléau.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="charte-num">II</span>
-                            <div>
-                                <h3>Le Sanctuaire des Égarés <small>l'accueil</small></h3>
-                                <p>Tout chat perdu, solitaire blessé ou chaton abandonné trouvé sur le territoire doit être escorté au camp et nourri. L'hostilité envers l'étranger est un signe de faiblesse.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="charte-num">III</span>
-                            <div>
-                                <h3>Le Serment de la Lignée <small>indissolubilité</small></h3>
-                                <p>Il est strictement interdit de séparer des fratries de chatons, qu'ils soient nés au clan ou rescapés. Si un chaton est adopté, ses frères et sœurs le sont également.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="charte-num">IV</span>
-                            <div>
-                                <h3>Le Silence de la Canopée <small>discrétion</small></h3>
-                                <p>Un guerrier doit rester calme. Aucune information interne (faiblesses, manque de gibier) ne doit franchir l'entrée du camp. Le secret du camp est la force de ses murs.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="charte-num">V</span>
-                            <div>
-                                <h3>Le Devoir d'Assistance <small>l'altruisme</small></h3>
-                                <p>Si un autre clan traverse une crise majeure (famine, épidémie), le Clan du Tonnerre se doit de proposer son aide, même si cela demande un sacrifice momentané.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <span class="charte-num">VI</span>
-                            <div>
-                                <h3>La Protection des Faibles</h3>
-                                <p>Les anciens, les reines et les malades mangent toujours les premiers. En patrouille, le plus fort couvre toujours le plus lent ou le plus jeune. On ne laisse personne derrière.</p>
-                            </div>
-                        </li>
-                    </ol>
-                </div>
-            </section>
-
-        </div>
     </main>
 
     <div id="pied"></div>
@@ -127,6 +130,11 @@
     <script src="js/site.js"></script>
     <script src="js/outils.js"></script>
     <script src="js/data/vies.js"></script>
+    <script src="js/data/journal.js"></script>
+    <script src="js/data/textes.js"></script>
+    <script src="js/data/lunes.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/donnees.js"></script>
     <script src="js/pages/accueil.js"></script>
 </body>
 </html>

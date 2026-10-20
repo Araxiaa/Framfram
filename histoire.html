@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Histoire — Étoile de Framboisier</title>
-    <meta name="description" content="L'histoire d'Étoile de Framboisier, de sa naissance à son règne de meneur du Tonnerre.">
-    <meta name="theme-color" content="#E6ECF1">
+    <title>Son histoire — Étoile de Framboisier</title>
+    <meta name="description" content="L'histoire d'Étoile de Framboisier, de sa naissance à son règne de meneur du Tonnerre, et le journal des lunes de ses sujets de RP.">
+    <meta name="theme-color" content="#F5EFDF">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Figtree:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Figtree:wght@400;500;600&family=Caveat:wght@500;600&display=swap">
     <script src="js/theme.js"></script>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/layout.css">
@@ -20,61 +20,41 @@
 
     <div id="entete"></div>
 
-    <main id="contenu" class="conteneur">
+    <main id="contenu">
 
-        <header class="tete-page">
-            <h1>Chronique d'un destin brisé</h1>
-            <p class="intro">Le parcours d'un colosse devenu le gardien de la concorde au sein du Tonnerre.</p>
-            <hr class="filet-pelage">
+        <header class="tete-page conteneur">
+            <span class="lavis lavis-framboise" style="top:-16%; left:-6%; width:480px; height:360px"></span>
+            <span class="lavis lavis-roux" style="top:6%; left:40%; width:460px; height:320px"></span>
+            <span class="surtitre">Son histoire</span>
+            <h1 id="histoire-titre">Chronique d'un destin brisé</h1>
+            <p class="intro" id="histoire-intro">Le parcours d'un colosse devenu le gardien de la concorde au sein du Tonnerre.</p>
         </header>
 
-        <ol class="chronique">
+        <div class="conteneur" data-onglets>
 
-            <li class="periode">
-                <div class="periode-lune">0 à 6 lunes</div>
-                <div class="periode-corps prose">
-                    <h3>Période chaton</h3>
-                    <p>Naissance au sein du clan sous le regard distant et exigeant de ses parents, Racine de Bouleau et Douce Sève. Dès ses premiers pas, le jeune chaton se démarque par sa taille imposante, mais se heurte vite à la froideur émotionnelle de ses géniteurs. Durant cette période cruciale, ses seuls piliers sont ses adelphes de portée : Épine de Fraisier, Ombre de Myrtille et Nuage de Mûre. C'est avec eux qu'il apprend la chaleur de la confiance, une complicité fraternelle qui forgera son attachement viscéral envers les siens.</p>
+            <section class="onglet-panneau" id="chronique" data-titre="La chronique">
+                <ol class="chronique" id="chronique-liste"></ol>
+            </section>
+
+            <section class="onglet-panneau" id="journal" data-titre="Journal des lunes">
+                <div class="journal-outils">
+                    <p class="journal-bilan" id="journal-bilan"></p>
+                    <button type="button" class="bouton bouton-clair bouton-petit" id="journal-ordre" aria-pressed="false">Voir le plus récent en premier</button>
                 </div>
-            </li>
+                <div class="fil-journal" id="journal-fil"></div>
+            </section>
 
-            <li class="periode">
-                <div class="periode-lune">6 à 12 lunes</div>
-                <div class="periode-corps prose">
-                    <h3>Période apprenti</h3>
-                    <p>Devenu apprenti, son gabarit explose pour atteindre une stature de colosse, lui offrant une force brute remarquable mais le privant de la vélocité naturelle de ses camarades. C'est le moment des premiers grands drames : la tragédie frappe sa fratrie de plein fouet, le laissant seul survivant de sa portée d'origine. C'est aussi durant ces lunes qu'il subit sa chute mémorable des Rochers du Soleil, y laissant sa toute première vie et une longue cicatrice sur sa queue. Marqué physiquement et psychologiquement par la perte et la fragilité de l'existence, il commence à s'isoler dans ses pensées et à porter ses célèbres anneaux de freesia en hommage à sa sœur.</p>
-                </div>
-            </li>
-
-            <li class="periode">
-                <div class="periode-lune">12 à 15 lunes</div>
-                <div class="periode-corps prose">
-                    <h3>Période guerrier</h3>
-                    <p>Son baptême de guerrier n'atténue pas ses doutes profonds ni sa peur constante du jugement d'autrui. Alors qu'il tente de stabiliser son quotidien auprès de sa sœur adoptive, Nuage de Nénuphar, le clan bascule dans l'horreur. Lors d'un terrible incident au cœur du camp, il assiste au spectacle macabre du corps ensanglanté de son meneur, Étoile Brumeuse, brutalement transpercé par une branche d'arbre. Ce traumatisme visuel scelle à jamais son dégoût pour la violence gratuite et les effusions de sang futiles.</p>
-                </div>
-            </li>
-
-            <li class="periode">
-                <div class="periode-lune">15 à 20 lunes</div>
-                <div class="periode-corps prose">
-                    <h3>Période meneur</h3>
-                    <p>Propulsé à la tête du Clan du Tonnerre à seulement 15 lunes sous le nom d'Étoile de Framboisier, il doit dissimuler son anxiété derrière un masque hautain et calculé pour asseoir sa légitimité face aux anciens. Témoin des colères répétées du Clan des Étoiles (destruction du chêne à l'assemblée, dissolution du Clan de la Rivière), sa foi reste inébranlable. À l'aube de ses 20 lunes, désormais mieux ancré dans ses fonctions, il officialise sa charte pacifique, « L'Écorce de la Concorde », bien décidé à offrir à sa forêt et à ses jeunes chatons, Petit Galopin et Petit Courlis, un avenir serein loin des guerres incessantes.</p>
-                </div>
-            </li>
-
-            <li class="periode a-venir">
-                <div class="periode-lune">À venir</div>
-                <div class="periode-corps prose">
-                    <h3>La suite de l'histoire…</h3>
-                    <p>À écrire au fil des lunes et des rencontres lors des prochains jeux de rôle.</p>
-                </div>
-            </li>
-
-        </ol>
-
+        </div>
     </main>
 
     <div id="pied"></div>
+
     <script src="js/site.js"></script>
+    <script src="js/outils.js"></script>
+    <script src="js/data/journal.js"></script>
+    <script src="js/data/textes.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/donnees.js"></script>
+    <script src="js/pages/histoire.js"></script>
 </body>
 </html>

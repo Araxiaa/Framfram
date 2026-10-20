@@ -1,79 +1,81 @@
-# Où modifier quoi
+# Guide du site
 
-## Je veux changer un contenu
+## Les pages
 
-| Je veux modifier…                        | Je vais dans…                    |
-|------------------------------------------|----------------------------------|
-| Une relation (ajout, cœurs, texte)       | `js/data/relations.js`           |
-| Un chat de l'arbre généalogique          | `js/data/lignee.js`              |
-| Une vie (don, perte, lune)               | `js/data/vies.js`                |
-| Un sujet du journal                      | `js/data/journal.js`             |
-| Une illustration de la galerie           | `js/data/galerie.js`             |
-| Le texte du caractère                    | `caractere.html`                 |
-| Le texte du physique                     | `physique.html`                  |
-| L'histoire (les périodes)                | `histoire.html`                  |
-| La relation au clan, la diplomatie       | `relations.html`                 |
-| La charte, la fiche rapide, la devise    | `index.html`                     |
-| Un lien du menu, sa phrase sur l'accueil, le pied de page | `js/site.js`    |
+| Page            | Fichier         | Sous-pages (onglets)                       |
+|-----------------|-----------------|--------------------------------------------|
+| Accueil         | `index.html`    | (une seule page qui défile)                |
+| Le Meneur       | `lui.html`      | Caractère · Physique · Ses vies            |
+| Son histoire    | `histoire.html` | La chronique · Journal des lunes           |
+| Son monde       | `monde.html`    | Lignée · Relations · Diplomatie            |
+| Galerie         | `galerie.html`  |                                            |
+| Dashboard       | `admin.html`    | réservé à l'administrateur (connexion Discord) |
 
-Les fichiers `js/data/` sont des listes : chaque chat, relation, vie ou œuvre est un petit bloc
-`{ ... }` à copier-coller. Le mode d'emploi est écrit en commentaire en haut de chaque fichier.
+Une sous-page s'ouvre directement avec son adresse : `lui.html#physique`, `monde.html#relations`…
 
-## Écrire un texte avec une apostrophe
+## Modifier le contenu : le dashboard
 
-Dans les fichiers `js/data/`, mets chaque texte entre **backticks** ( ` ), pas entre apostrophes :
+Ouvre `admin.html` et connecte-toi avec Discord. Rubriques : Relations, Lignée, Ses vies,
+Journal des lunes, Galerie, **Mur des lunes**, **Textes des pages** (accueil, caractère, physique, histoire, monde).
+On y ajoute, modifie, déplace, supprime ; les images s'envoient directement (elles sont allégées toutes seules).
 
-    titre: `Clapotis d'Étang`      ✔ fonctionne
-    titre: 'Clapotis d'Étang'      ✘ le fichier plante, rien ne s'affiche
+Le site lit la base en ligne (Supabase). Si elle est injoignable, il retombe sur les fichiers
+`js/data/*.js`, qui servent donc de **sauvegarde** et de valeurs de départ.
+Une fois le dashboard en service, la base fait foi : modifier `js/data/*.js` n'a plus d'effet tant qu'elle répond.
 
-Sur un clavier AZERTY, le backtick se tape avec **AltGr + 7** (puis Espace).
-Un backtick accepte les apostrophes, les guillemets, les accents. Il suffit d'éviter
-un backtick ou la suite `${` à l'intérieur d'un texte.
+| Fichier               | Rôle                                                              |
+|-----------------------|-------------------------------------------------------------------|
+| `supabase/schema.sql` | À lancer dans Supabase (SQL Editor) : tables, sécurité, compte admin, contenu de départ. Relançable sans risque. |
+| `js/config.js`        | Adresse et clé publique du projet Supabase                        |
+| `js/donnees.js`       | Charge le contenu depuis la base                                  |
+| `js/admin.js`         | Le dashboard ; la liste `RUBRIQUES` décrit les formulaires        |
 
-(Les anciens textes écrits entre apostrophes avec `\'` continuent de fonctionner.)
+**Ajouter un administrateur** : Supabase → SQL Editor →
+`insert into public.admins (discord_id, note) values ('IDENTIFIANT_DISCORD', 'Nom');`
 
-## Je veux changer l'apparence
+## Modifier l'apparence
 
-| Je veux changer…                         | Je vais dans…                    |
-|------------------------------------------|----------------------------------|
-| Les couleurs, les polices                | `css/base.css` (variables en haut ; le bloc `data-theme="dark"` règle le thème sombre) |
-| L'en-tête, le menu, le pied de page      | `css/layout.css`                 |
-| Les accordéons, pastilles, panneaux      | `css/components.css`             |
-| Le design d'une page précise             | `css/pages/<nom de la page>.css` |
+| Je veux changer…                             | Je vais dans…                        |
+|----------------------------------------------|--------------------------------------|
+| Les couleurs, les polices, le thème sombre   | `css/base.css` (variables en haut)   |
+| L'en-tête, le menu, les onglets, le pied     | `css/layout.css`                     |
+| Boutons, cartes, pastilles, lavis d'aquarelle | `css/components.css`                |
+| Le design d'une page précise                 | `css/pages/<page>.css`               |
+| Les liens du menu, les cartes de l'accueil   | `js/site.js` (liste `PAGES`)         |
+| Le décor (branche feuillue)                  | `assets/decor/branche.svg`           |
+
+L'ambiance : fond de papier avec grain, taches d'aquarelle (`.lavis`), pétales de freesia le jour,
+lucioles la nuit (thème sombre).
 
 ## Les animations
 
-Tout est dans `css/animations.css` (l'apparence) et `js/animations.js` (le comportement).
-Elles se chargent depuis le bloc « Animations » en bas de `js/site.js`.
-
-- **Tout couper** : supprimer ce bloc dans `js/site.js`.
-- **Plus de nuages / de pétales** : tableau `ciel()` et boucle `petales()` dans `js/animations.js`.
-- **Plus lent ou plus rapide** : les durées sont dans `css/animations.css` (`--duree` des nuages, `animation` des sections).
-- **Apparition au défilement** : la liste des éléments concernés est la variable `cibles` dans `js/animations.js`.
+Tout est dans `css/animations.css` (apparence) et `js/animations.js` (comportement).
+- **Tout couper** : supprimer le bloc « Animations » à la fin de `js/site.js`.
+- **Plus ou moins de pétales / lucioles** : boucles `for` dans `ambiance()` de `js/animations.js`.
+- **Apparition au défilement** : la liste `cibles` dans `js/animations.js`.
 
 Les personnes qui ont activé « réduire les animations » sur leur appareil voient un site immobile.
 
-## Thème clair / sombre
-
-Le site suit le réglage de l'appareil, et le bouton en forme de lune (en haut) permet de choisir.
-Les couleurs des deux thèmes sont dans `css/base.css` ; le script `js/theme.js` retient le choix.
-
 ## Les images
 
-Toutes les images vont dans `assets/photos/`, y compris `avatar_courlis.png`
-(qui n'est pas encore ajouté : l'initiale s'affiche à sa place).
-
-**Format** : préfère le **WebP** (10 à 15 fois plus léger que le PNG, même rendu). Pour convertir une image,
-l'outil en ligne squoosh.app suffit (qualité 80, largeur maximale ~1600 px). Pense à écrire
-l'extension `.webp` dans `js/data/*.js`. Les anciens PNG originaux sont gardés dans le dossier
-« Etoile de Framboisier - originaux », hors du site.
-
-Le nom du fichier dans `js/data/*.js` doit correspondre exactement au nom réel de l'image.
-Si une image est introuvable, le site affiche l'initiale du chat (portraits)
-ou le nom de fichier attendu (galerie).
+Toutes dans `assets/photos/` (ou envoyées par le dashboard). Préfère le **WebP** (10 à 15 fois plus léger
+que le PNG) : squoosh.app convertit en un clic (qualité 80, 1600 px max).
+Si une image est introuvable, le site affiche l'initiale du chat (portraits) ou le nom du fichier attendu (galerie).
 
 ## Ajouter une page
 
-1. Copier une page existante (par exemple `vies.html`) et la renommer.
-2. Changer `data-page="..."` dans la balise `<body>`.
+1. Copier une page existante (par exemple `galerie.html`) et la renommer.
+2. Changer `data-page="..."` dans `<body>`.
 3. Ajouter une ligne dans `PAGES` en haut de `js/site.js`.
+Pour des sous-pages : `<div data-onglets>` contenant des `<section class="onglet-panneau" id="..." data-titre="...">`.
+
+## Relations : l'évolution des avis
+
+Chaque chat a une fiche (nom, photo, rôle, **clan / groupe**, joueur) et une liste d'**avis** datés, du plus ancien
+au plus récent : lune (âge d'Étoile de Framboisier), affinité (cœurs), respect (étoile) et appréciation (texte).
+Sur le site, la carte montre le dernier avis ; un clic ouvre une fenêtre qui défile avec la courbe d'évolution et tous les avis.
+Les filtres de la page sont créés à partir des clans / groupes saisis (écris-les toujours pareil : le dashboard te les propose).
+
+## Mur des lunes
+
+Les souvenirs épinglés de l'accueil (rubrique « Mur des lunes » du dashboard) : lune, titre, texte, image facultative, couleur.

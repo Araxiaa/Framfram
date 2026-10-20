@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard — Étoile de Framboisier</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="theme-color" content="#F5EFDF">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Figtree:wght@400;500;600&family=Caveat:wght@500;600&display=swap">
+    <script src="js/theme.js"></script>
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+    <header class="admin-barre">
+        <a class="marque" href="index.html">← Retour au site</a>
+        <span class="admin-titre">Dashboard</span>
+        <span class="admin-qui" id="qui"></span>
+        <button class="bouton-clair bouton-petit" id="deconnexion" type="button" hidden>Se déconnecter</button>
+    </header>
+
+    <main class="admin-contenu">
+
+        <!-- Écran : chargement / connexion / refus -->
+        <section class="admin-ecran panneau" id="ecran">
+            <p>Chargement…</p>
+        </section>
+
+        <!-- Dashboard -->
+        <div class="admin-app" id="app" hidden>
+            <nav class="admin-onglets" id="onglets" aria-label="Rubriques"></nav>
+            <section class="admin-editeur">
+                <div class="admin-entete">
+                    <div>
+                        <h1 id="rubrique-titre"></h1>
+                        <p class="admin-aide" id="rubrique-aide"></p>
+                    </div>
+                    <div class="admin-actions">
+                        <button class="bouton" id="enregistrer" type="button">Enregistrer</button>
+                    </div>
+                </div>
+                <div id="formulaire"></div>
+            </section>
+        </div>
+    </main>
+
+    <div class="admin-toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.58.0/dist/umd/supabase.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/outils.js"></script>
+    <script src="js/data/relations.js"></script>
+    <script src="js/data/lignee.js"></script>
+    <script src="js/data/vies.js"></script>
+    <script src="js/data/journal.js"></script>
+    <script src="js/data/galerie.js"></script>
+    <script src="js/data/textes.js"></script>
+    <script src="js/data/lunes.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
