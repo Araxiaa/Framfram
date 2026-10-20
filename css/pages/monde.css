@@ -1,0 +1,266 @@
+/* ==========================================================================
+   SON MONDE — arbre généalogique, relations, diplomatie.
+   ========================================================================== */
+
+/* ---------- Lignée ---------- */
+.origine {
+    display: inline-block;
+    margin: 0 0 46px;
+    padding: 8px 22px;
+    border-radius: 999px;
+    background: var(--creme);
+    border: 1px solid var(--brume-profonde);
+    box-shadow: var(--ombre);
+}
+.origine .note-main { margin-right: 6px; }
+
+.arbre { display: grid; justify-items: center; }
+.generation { text-align: center; width: 100%; }
+.gen-titre {
+    display: inline-block;
+    margin-bottom: 22px;
+    font-family: var(--main);
+    font-size: 1.9rem;
+    font-weight: 500;
+    color: var(--framboise);
+}
+.groupes { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px 56px; }
+.groupe-titre {
+    margin-bottom: 14px;
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--encre-douce);
+}
+.membres { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
+
+/* Une liane tombe d'une génération à l'autre */
+.lien-gen {
+    position: relative;
+    width: 3px;
+    height: 64px;
+    margin: 18px auto;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--mousse), transparent);
+    opacity: 0.7;
+}
+.lien-gen::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 18px;
+    height: 10px;
+    translate: 0 -50%;
+    border-radius: 80% 0 80% 0 / 100% 0 100% 0;
+    background: var(--mousse);
+}
+
+/* Un chat */
+.fiche-chat {
+    position: relative;
+    width: 176px;
+    padding: 22px 12px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: var(--creme);
+    border: 1px solid var(--brume-profonde);
+    border-radius: 28px 28px 22px 22px;
+    box-shadow: var(--ombre);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.fiche-chat:hover { transform: translateY(-5px) rotate(-0.6deg); box-shadow: var(--ombre-haute); }
+.fiche-chat .avatar { width: 78px; height: 78px; margin-bottom: 8px; }
+.fiche-chat h4 { font-size: 1.02rem; line-height: 1.25; }
+.fiche-role { margin: 0; font-size: 0.88rem; color: var(--encre-douce); }
+.fiche-etiquettes { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 6px; }
+.fiche-etiquettes:empty { display: none; }
+.fiche-joueur { margin: 4px 0 0; font-family: var(--main); font-size: 1.15rem; line-height: 1.1; color: var(--encre-douce); }
+
+.groupe.couple .membres { gap: 46px; }
+.groupe.couple .fiche-chat + .fiche-chat::before {
+    content: "♥";
+    position: absolute;
+    left: -42px;
+    top: 56px;
+    width: 38px;
+    text-align: center;
+    color: var(--framboise);
+    font-size: 1rem;
+}
+
+.fiche-chat.statut-vivant-pj .avatar { box-shadow: 0 0 0 3px var(--creme), 0 0 0 5px var(--azur); }
+.fiche-chat.statut-decede { background: var(--creme-ombre); }
+.fiche-chat.statut-decede .avatar { filter: grayscale(1); opacity: 0.7; }
+.fiche-chat.statut-decede h4 { color: var(--encre-douce); }
+.fiche-chat.statut-disparu { border-style: dashed; }
+.fiche-chat.statut-disparu .avatar { opacity: 0.8; }
+.fiche-chat.statut-vide { background: transparent; border-style: dashed; box-shadow: none; }
+.fiche-chat.statut-vide .avatar { background: transparent; border: 2px dashed var(--brume-profonde); box-shadow: none; }
+.fiche-chat.statut-vide .avatar::before { content: ""; }
+.fiche-chat.statut-vide h4 { color: var(--encre-douce); font-weight: 400; font-style: italic; }
+
+.fiche-chat.statut-heros {
+    width: 216px;
+    border: 2px solid var(--framboise);
+    background: linear-gradient(170deg, var(--framboise-pale), var(--creme) 55%);
+    box-shadow: var(--ombre-haute), 0 0 40px -6px rgba(178, 58, 92, 0.35);
+}
+.fiche-chat.statut-heros .avatar { width: 108px; height: 108px; box-shadow: 0 0 0 3px var(--creme), 0 0 0 5px var(--framboise); }
+.fiche-chat.statut-heros h4 { font-size: 1.15rem; }
+
+@media (max-width: 520px) {
+    .fiche-chat { width: calc(50% - 9px); min-width: 150px; }
+    .fiche-chat.statut-heros { width: 100%; }
+    .groupe.couple .membres { gap: 18px; }
+    .groupe.couple .fiche-chat + .fiche-chat::before { display: none; }
+}
+
+/* ---------- Relations ---------- */
+.deux-col-monde { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 28px; align-items: start; }
+.deux-col-monde .prose { padding: 34px 38px; }
+.deux-col-monde .prose h3 { font-size: 1.45rem; margin-bottom: 16px; }
+.deux-col-monde .prose p { max-width: none; }
+.legende-carte { position: sticky; top: 156px; padding: 24px 26px; }
+.legende-carte h3 { font-size: 1.15rem; margin-bottom: 14px; }
+.legende { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 0.93rem; color: var(--encre-douce); }
+.legende li { display: flex; align-items: center; gap: 12px; }
+.legende .coeurs { flex: none; min-width: 4.2em; }
+@media (max-width: 900px) { .deux-col-monde { grid-template-columns: 1fr; } .legende-carte { position: static; } }
+
+.visages-titre { margin-top: 90px; margin-bottom: 20px; }
+.filtres { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+.filtre {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border: 1px solid var(--brume-profonde);
+    border-radius: 999px;
+    background: var(--creme);
+    color: var(--encre-douce);
+    font: inherit;
+    font-size: 0.93rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.filtre:hover { border-color: var(--framboise); color: var(--framboise); }
+.filtre[aria-pressed="true"] { background: var(--foret); border-color: var(--foret); color: var(--creme); }
+:root[data-theme="dark"] .filtre[aria-pressed="true"] { background: var(--mousse); border-color: var(--mousse); color: #0E1A19; }
+
+.relations { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 20px; }
+.relation[hidden] { display: none; }
+.relation { display: block; }
+.relation-bouton {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+    padding: 20px 22px;
+    border: 1px solid var(--brume-profonde);
+    border-radius: var(--rayon-l);
+    background: var(--creme);
+    box-shadow: var(--ombre);
+    color: var(--encre);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.relation-bouton:hover { transform: translateY(-4px) rotate(-0.4deg); box-shadow: var(--ombre-haute); border-color: var(--framboise); }
+.relation .avatar.grand { width: 84px; height: 84px; font-size: 2rem; }
+.relation.defunt .avatar { filter: grayscale(0.9); opacity: 0.8; }
+.relation-corps { display: grid; gap: 6px; min-width: 0; }
+.relation-nom { font-family: var(--serif); font-size: 1.28rem; line-height: 1.2; }
+.relation-meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.relation-bas { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; font-size: 0.9rem; color: var(--encre-douce); }
+.relation-nb { font-family: var(--main); font-size: 1.2rem; line-height: 1; color: var(--framboise); }
+.relation-joueur { margin: 4px 0 0; font-family: var(--main); font-size: 1.2rem; line-height: 1.1; color: var(--encre-douce); }
+@media (max-width: 520px) { .relations { grid-template-columns: 1fr; } }
+
+/* ---------- Fenêtre d'un chat : l'évolution de son avis ---------- */
+.fiche-relation {
+    width: min(94vw, 720px);
+    max-height: 90vh;
+    padding: 0;
+    border: 0;
+    border-radius: var(--rayon-l);
+    background: var(--creme);
+    color: var(--encre);
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+}
+.fiche-relation::backdrop { background: rgba(14, 24, 33, 0.78); backdrop-filter: blur(4px); }
+.fiche-relation[open] { display: flex; flex-direction: column; animation: onglet-entree 0.35s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.fr-contenu { display: flex; flex-direction: column; min-height: 0; max-height: 90vh; }
+.fiche-relation .vis-fermer {
+    position: absolute; top: 12px; right: 12px; z-index: 3;
+    width: 44px; height: 44px; border: 0; border-radius: 50%;
+    background: var(--creme); color: var(--encre-douce); font-size: 2rem; line-height: 1;
+    box-shadow: var(--ombre); cursor: pointer;
+}
+.fiche-relation .vis-fermer:hover { color: var(--framboise); }
+.fr-tete {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 28px 70px 22px 30px;
+    background: linear-gradient(160deg, var(--sauge-pale), var(--creme));
+    border-bottom: 1px solid var(--brume-profonde);
+}
+.avatar.enorme { width: 104px; height: 104px; font-size: 2.6rem; }
+.fr-tete h2 { font-size: 1.8rem; margin-bottom: 8px; }
+.fr-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 0; }
+.fr-corps { overflow-y: auto; padding: 24px 30px 34px; overscroll-behavior: contain; }
+
+.courbe { margin: 0 0 26px; padding: 14px 16px 10px; border-radius: var(--rayon-m); background: var(--brume); border: 1px solid var(--brume-profonde); }
+.courbe svg { display: block; width: 100%; height: auto; overflow: visible; }
+.courbe .zero { stroke: var(--brume-profonde); stroke-width: 1.5; stroke-dasharray: 5 5; }
+.courbe .trace { fill: none; stroke: var(--mousse); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.courbe .pt-aime { fill: var(--framboise); stroke: var(--creme); stroke-width: 2; }
+.courbe .pt-aversion { fill: var(--aversion); stroke: var(--creme); stroke-width: 2; }
+.courbe .pt-neutre { fill: var(--encre-douce); stroke: var(--creme); stroke-width: 2; }
+.courbe figcaption { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--encre-douce); }
+
+.fr-outils { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; }
+.fr-outils h3 { font-size: 1.15rem; }
+
+.avis-liste { position: relative; list-style: none; margin: 0; padding: 0 0 0 30px; display: grid; gap: 26px; }
+.avis-liste::before { content: ""; position: absolute; left: 7px; top: 8px; bottom: 8px; width: 3px; border-radius: 3px; background: repeating-linear-gradient(180deg, var(--mousse) 0 10px, transparent 10px 16px); opacity: 0.6; }
+.avis { position: relative; }
+.avis-noeud { position: absolute; left: -30px; top: 6px; width: 17px; height: 17px; border-radius: 50%; background: var(--creme); border: 3px solid var(--mousse); }
+.avis.actuel .avis-noeud { background: var(--framboise); border-color: var(--framboise-pale); box-shadow: 0 0 14px var(--framboise); }
+.avis-tete { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 6px; }
+.avis-lune { font-family: var(--main); font-size: 1.55rem; line-height: 1; color: var(--framboise); }
+.avis p { margin: 0; font-size: 1rem; color: var(--encre-douce); }
+
+@media (max-width: 520px) {
+    .fr-tete { flex-direction: column; align-items: flex-start; padding: 24px 24px 20px; gap: 14px; }
+    .fr-corps { padding: 20px 22px 30px; }
+}
+
+/* ---------- Diplomatie ---------- */
+.clans { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+.clan { padding: 34px 36px; overflow: hidden; }
+.clan::before {
+    content: "";
+    position: absolute;
+    top: -70px;
+    right: -70px;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--teinte), transparent);
+    opacity: 0.5;
+}
+.clan.neutre   { --teinte: #A9D2E6; }
+.clan.mefiant  { --teinte: #E9A9BC; }
+:root[data-theme="dark"] .clan::before { opacity: 0.2; }
+.clan h3 { position: relative; font-size: 1.6rem; margin-bottom: 10px; }
+.clan .pastille { position: relative; margin-bottom: 16px; }
+.clan p { position: relative; font-size: 1rem; }

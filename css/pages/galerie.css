@@ -88,3 +88,13 @@
     box-shadow: var(--ombre);
 }
 @media (max-width: 600px) { .vis-nav { padding: 0 6px; font-size: 1.8rem; } }
+
+/* ---------- Polaroïds d'aquarelle ---------- */
+.galerie { margin-top: 56px; }
+.oeuvre { border-radius: var(--rayon-l); padding: 10px 10px 0; }
+.oeuvre a { border-radius: calc(var(--rayon-l) - 8px); }
+.oeuvre:nth-child(3n+1) { rotate: -0.6deg; }
+.oeuvre:nth-child(3n+2) { rotate: 0.5deg; }
+.oeuvre:hover { rotate: 0deg; }
+.oeuvre figcaption { padding: 12px 8px 14px; }
+.oeuvre figcaption strong { font-size: 1.1rem; }

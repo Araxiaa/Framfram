@@ -1,82 +1,320 @@
 /* ==========================================================================
-   ACCUEIL — portrait, fiche rapide, charte du clan.
+   ACCUEIL — héros, fiche, charte gravée, cartes, derniers sujets.
    ========================================================================== */
 
+/* ---------- Héros ---------- */
 .hero {
+    position: relative;
+    min-height: min(100svh - 70px, 860px);
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
-    gap: 56px;
     align-items: center;
-    padding: 88px 0 8px;
+    padding: 56px 0 90px;
+    isolation: isolate;
 }
+.hero-branche {
+    position: absolute;
+    z-index: -1;
+    top: -150px;
+    width: min(30vw, 400px);
+    height: auto;
+    opacity: 0.8;
+    pointer-events: none;
+    transform-origin: top left;
+}
+.hero-branche-g { left: -70px; }
+.hero-branche-d { right: -70px; scale: -1 1; transform-origin: top center; }
+:root[data-theme="dark"] .hero-branche { opacity: 0.38; }
 
+.hero-grille {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 48px;
+    align-items: center;
+}
+.hero-texte .surtitre { font-size: 1.7rem; margin-bottom: 10px; }
 .hero h1 {
-    font-size: clamp(2.9rem, 8vw, 5.4rem);
-    font-weight: 350;
-    line-height: 1;
-    letter-spacing: -0.025em;
+    font-size: clamp(3.2rem, 8.6vw, 6.4rem);
+    font-weight: 300;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
 }
-
 .devise {
-    margin: 28px 0 4px;
+    margin: 26px 0 8px;
     font-family: var(--serif);
     font-style: italic;
-    font-size: 1.4rem;
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem);
     color: var(--framboise);
 }
-.fonction { margin: 0; color: var(--encre-douce); }
+.hero-vies { margin-top: 30px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 34px 0 0; }
 
-.hero-vies { margin-top: 36px; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 0; }
+/* Portrait dans un cadre organique, comme une tache d'aquarelle */
+.hero-portrait { position: relative; margin: 0; justify-self: center; width: min(100%, 460px); }
+.portrait-cadre {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    border-radius: 58% 42% 55% 45% / 48% 56% 44% 52%;
+    background: linear-gradient(160deg, #9CC9E0 0%, var(--azur-pale) 65%, var(--creme) 100%);
+    box-shadow: 0 0 0 10px var(--creme), 0 0 0 11px var(--sauge), var(--ombre-haute);
+    font-family: var(--serif);
+    font-size: 7rem;
+    color: var(--azur-profond);
+}
+.portrait-cadre::before { content: attr(data-initiale); }
+.portrait-cadre img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.08);
+}
+.hero-portrait::before {                 /* halo framboise derrière le portrait */
+    content: "";
+    position: absolute;
+    inset: -8% -10% -10% -6%;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(233, 169, 188, 0.7), transparent);
+    filter: url(#aquarelle) blur(14px);
+}
+:root[data-theme="dark"] .hero-portrait::before { opacity: 0.35; }
+.hero-portrait figcaption { margin-top: 18px; text-align: center; transform: rotate(-2deg); }
 
-/* Cartes « Explorer » */
+.defiler {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    translate: -50% 0;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--brume-profonde);
+    background: var(--verre);
+    color: var(--encre-douce);
+    animation: rebond 2.4s ease-in-out infinite;
+}
+.defiler svg { width: 22px; height: 22px; }
+@keyframes rebond { 50% { translate: -50% 8px; } }
+
+@media (max-width: 860px) {
+    .hero { min-height: 0; padding: 32px 0 90px; }
+    .hero-grille { grid-template-columns: 1fr; gap: 44px; }
+    .hero-portrait { order: -1; width: min(78%, 340px); }
+    .hero-branche { width: 52vw; top: -120px; }
+}
+
+/* ---------- Fiche rapide : des galets ---------- */
+.galets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.galet {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 18px 22px 20px;
+    background: var(--creme);
+    border: 1px solid var(--brume-profonde);
+    box-shadow: var(--ombre);
+    border-radius: 46% 54% 52% 48% / 38% 40% 60% 62%;
+    border-radius: 34px 46px 38px 48px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.galet:nth-child(3n+2) { border-radius: 46px 34px 48px 38px; background: var(--sauge-pale); }
+.galet:nth-child(3n)   { border-radius: 38px 48px 34px 46px; background: var(--azur-pale); }
+.galet:hover { transform: translateY(-4px) rotate(-0.8deg); box-shadow: var(--ombre-haute); }
+.galet span { font-family: var(--main); font-size: 1.3rem; color: var(--framboise); line-height: 1.1; }
+.galet strong { font-family: var(--serif); font-weight: 500; font-size: 1.12rem; line-height: 1.3; }
+
+/* ---------- La charte gravée dans l'écorce ---------- */
+.ecorce {
+    position: relative;
+    padding: clamp(24px, 4vw, 52px);
+    border-radius: 40px;
+    color: #F2E8D5;
+    background:
+        radial-gradient(70% 90% at 15% 0%, rgba(217, 128, 62, 0.22), transparent 60%),
+        radial-gradient(60% 80% at 90% 100%, rgba(178, 58, 92, 0.2), transparent 60%),
+        repeating-linear-gradient(92deg, rgba(0, 0, 0, 0.0) 0 14px, rgba(0, 0, 0, 0.1) 14px 16px, rgba(255, 255, 255, 0.025) 16px 19px),
+        linear-gradient(160deg, #4F3E2D, #33271C);
+    box-shadow: var(--ombre-haute), inset 0 2px 0 rgba(255, 255, 255, 0.08);
+}
+.articles {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.article {
+    position: relative;
+    padding: 26px 24px 24px;
+    border-radius: 24px;
+    background: rgba(20, 12, 6, 0.28);
+    border: 1px solid rgba(255, 233, 200, 0.12);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.article:hover { transform: translateY(-4px); background: rgba(20, 12, 6, 0.4); }
+.article-num {
+    display: block;
+    margin-bottom: 8px;
+    font-family: var(--serif);
+    font-size: 2.6rem;
+    font-weight: 300;
+    line-height: 1;
+    color: #F0B98A;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5), 0 0 22px rgba(240, 185, 138, 0.35);
+}
+.article h3 { color: #FFF6E4; font-size: 1.22rem; margin-bottom: 4px; }
+.article-sous { margin: 0 0 10px; font-family: var(--main); font-size: 1.25rem; line-height: 1.1; color: #F0B98A; }
+.article p:last-child { margin: 0; font-size: 0.97rem; line-height: 1.65; color: #E8DCC6; }
+
+@media (max-width: 980px) { .articles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .articles { grid-template-columns: 1fr; } .ecorce { border-radius: 28px; } }
+
+/* ---------- Cartes « Explorer » ---------- */
 .explorer {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 22px;
 }
-
-@media (max-width: 800px) {
-    .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 48px; }
+.carte-nav {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    color: var(--encre);
+    text-decoration: none;
+    background: var(--creme);
+    border: 1px solid var(--brume-profonde);
+    border-radius: var(--rayon-l);
+    box-shadow: var(--ombre);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
-
-/* Fiche rapide */
-.fiche-dl.en-colonnes {
-    grid-template-columns: 1fr 1fr;
-    column-gap: 48px;
-}
-.fiche-dl.en-colonnes > div:nth-last-child(-n+2) { border-bottom: 0; }
-
-@media (max-width: 700px) {
-    .fiche-dl.en-colonnes { grid-template-columns: 1fr; }
-    .fiche-dl.en-colonnes > div:nth-last-child(2) { border-bottom: 1px solid var(--brume-profonde); }
-}
-
-/* Charte : un texte de loi, pas une grille de cartes */
-.charte { list-style: none; margin: 0; padding: 0; }
-.charte li {
-    display: grid;
-    grid-template-columns: 64px minmax(0, 1fr);
-    gap: 20px;
-    padding: 24px 0;
-    border-top: 1px solid var(--brume-profonde);
-}
-.charte li:first-child { border-top: 0; padding-top: 0; }
-.charte li:last-child { padding-bottom: 0; }
-
-.charte-num {
-    font-family: var(--serif);
-    font-size: 1.6rem;
+.carte-nav:hover { color: var(--encre); transform: translateY(-6px) rotate(-0.4deg); box-shadow: var(--ombre-haute); border-color: var(--framboise); }
+.carte-nav-image { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--azur-pale); }
+.carte-nav-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.carte-nav:hover .carte-nav-image img { transform: scale(1.07); }
+.carte-nav-texte { display: block; padding: 20px 24px 26px; }
+.carte-nav h3 { margin-bottom: 6px; }
+.carte-nav p { margin: 0; padding-right: 28px; font-size: 0.97rem; line-height: 1.55; color: var(--encre-douce); }
+.carte-fleche {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
     color: var(--framboise);
-    line-height: 1.2;
+    font-size: 1.3rem;
+    transition: transform 0.25s ease;
 }
-.charte h3 { margin-bottom: 6px; }
-.charte h3 small {
-    margin-left: 8px;
-    font-family: var(--sans);
-    font-size: 0.9rem;
-    font-weight: 400;
-    font-style: italic;
+.carte-nav:hover .carte-fleche { transform: translateX(6px); }
+
+/* ---------- Derniers sujets ---------- */
+.recents { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.recent {
+    display: block;
+    padding: 24px 26px;
+    color: var(--encre);
+    text-decoration: none;
+    background: var(--creme);
+    border: 1px solid var(--brume-profonde);
+    border-left: 5px solid var(--framboise);
+    border-radius: var(--rayon-m);
+    box-shadow: var(--ombre);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.recent:hover { color: var(--encre); transform: translateY(-4px); box-shadow: var(--ombre-haute); }
+.recent-lune { display: block; font-family: var(--main); font-size: 1.35rem; line-height: 1; color: var(--framboise); margin-bottom: 4px; }
+.recent h3 { font-size: 1.15rem; margin-bottom: 8px; }
+.recent p {
+    margin: 0;
+    font-size: 0.95rem;
     color: var(--encre-douce);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
-.charte p { margin: 0; max-width: var(--mesure); }
+
+/* ---------- Le mur des lunes ---------- */
+.entete-mur { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; max-width: none; }
+.mur-fleches { display: flex; gap: 10px; }
+.mur {
+    position: relative;
+    display: flex;
+    gap: 24px;
+    padding: 34px max(24px, calc((100vw - 1180px) / 2 + 24px)) 40px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: max(24px, calc((100vw - 1180px) / 2 + 24px));
+    scrollbar-width: none;
+    outline-offset: -4px;
+}
+.mur::-webkit-scrollbar { display: none; }
+.mur::before {                            /* la ficelle qui tient les souvenirs */
+    content: "";
+    position: absolute;
+    top: 36px;
+    left: 0;
+    width: max(100%, 100vw);
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--roux) 0 10px, transparent 10px 16px);
+    opacity: 0.55;
+}
+.souvenir {
+    position: relative;
+    flex: none;
+    width: min(300px, 78vw);
+    padding: 34px 26px 28px;
+    scroll-snap-align: start;
+    border-radius: 6px 6px 22px 6px;
+    background: var(--creme);
+    border: 1px solid var(--brume-profonde);
+    box-shadow: var(--ombre-haute);
+    transition: transform 0.35s ease;
+    rotate: -1.4deg;
+}
+.souvenir:nth-child(even) { rotate: 1.2deg; margin-top: 18px; }
+.souvenir:nth-child(3n) { rotate: -0.5deg; }
+.souvenir:hover { rotate: 0deg; transform: translateY(-6px); }
+.souvenir::before {                       /* teinte aquarelle en haut de la note */
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 120px;
+    border-radius: 6px 6px 0 0;
+    background: linear-gradient(180deg, var(--teinte), transparent);
+    opacity: 0.5;
+}
+.souvenir.azur      { --teinte: #A9D2E6; }
+.souvenir.sauge     { --teinte: #B5C9A8; }
+.souvenir.roux      { --teinte: #F0C9A2; }
+.souvenir.framboise { --teinte: #E9A9BC; }
+:root[data-theme="dark"] .souvenir::before { opacity: 0.22; }
+.epingle {
+    position: absolute;
+    top: -9px;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    translate: -50% 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #F6B6C6, var(--framboise) 70%);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+}
+.souvenir-image { position: relative; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; margin-bottom: 14px; border-radius: 4px; }
+.souvenir-lune { position: relative; display: block; font-family: var(--main); font-size: 2rem; line-height: 1; color: var(--framboise); margin-bottom: 4px; }
+.souvenir h3 { position: relative; font-size: 1.3rem; margin-bottom: 10px; }
+.souvenir p { position: relative; margin: 0; font-size: 0.96rem; line-height: 1.6; color: var(--encre-douce); }

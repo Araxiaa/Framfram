@@ -1,0 +1,149 @@
+/* ==========================================================================
+   LE MENEUR — caractère, physique, ses vies.
+   ========================================================================== */
+
+.deux-col {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 330px;
+    gap: 56px;
+    align-items: start;
+}
+.deux-col.inverse { grid-template-columns: 330px minmax(0, 1fr); }
+.encart { position: sticky; top: 156px; display: grid; gap: 20px; }
+.encart .carte { padding: 22px 24px; border-radius: var(--rayon-m); }
+.encart .carte h3 { font-size: 1.1rem; margin-bottom: 12px; }
+.deux-col .prose p { font-size: 1.08rem; max-width: none; }
+
+.bloc { margin-top: 90px; }
+
+@media (max-width: 900px) {
+    .deux-col, .deux-col.inverse { grid-template-columns: 1fr; gap: 36px; }
+    .encart { position: static; }
+}
+
+/* ---------- Cartes de traits (texte replié) ---------- */
+.traits { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 22px; }
+.trait {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 26px 28px 22px;
+    border-radius: var(--rayon-l);
+    border: 1px solid var(--brume-profonde);
+    background: var(--creme);
+    box-shadow: var(--ombre);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.trait::before {                          /* une tache de couleur en haut à gauche */
+    content: "";
+    position: absolute;
+    top: -40px;
+    left: -40px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, var(--teinte, var(--sauge)), transparent);
+    opacity: 0.55;
+}
+.trait.sauge     { --teinte: #B5C9A8; }
+.trait.framboise { --teinte: #E9A9BC; }
+.trait.roux      { --teinte: #F0C9A2; }
+:root[data-theme="dark"] .trait::before { opacity: 0.22; }
+.trait:hover { transform: translateY(-4px); box-shadow: var(--ombre-haute); }
+.trait h4 { position: relative; font-size: 1.3rem; margin-bottom: 10px; }
+.trait-texte {
+    position: relative;
+    margin: 0 0 12px;
+    font-size: 0.99rem;
+    line-height: 1.65;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.trait.ouvert .trait-texte { -webkit-line-clamp: unset; display: block; }
+.trait-plus {
+    position: relative;
+    align-self: flex-start;
+    margin-top: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--framboise);
+    font: inherit;
+    font-weight: 600;
+    font-size: 0.93rem;
+    cursor: pointer;
+}
+.trait-plus:hover { text-decoration: underline; text-underline-offset: 4px; }
+.trait.court .trait-plus { display: none; }
+
+/* ---------- Points forts / faibles ---------- */
+.deux-cartes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.deux-cartes .carte { padding: 34px 36px; }
+.deux-cartes .carte p { font-size: 1rem; }
+.carte.vert  { background: linear-gradient(160deg, var(--sauge-pale), var(--creme) 60%); }
+.carte.rose  { background: linear-gradient(160deg, var(--framboise-pale), var(--creme) 60%); }
+@media (max-width: 900px) { .deux-cartes { grid-template-columns: 1fr; } .deux-cartes .carte { padding: 26px 24px; } }
+
+/* Portrait réduit de l'onglet Physique */
+.portrait-cadre.petit { width: min(100%, 280px); margin: 0 auto 6px; font-size: 5rem; animation: none; }
+.portrait-cadre.petit img { transform: none; }
+
+/* ---------- Les neuf orbes ---------- */
+.orbes-zone { display: grid; gap: 30px; justify-items: center; }
+.orbes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 22px 18px;
+    max-width: 880px;
+}
+.orbe {
+    position: relative;
+    width: 108px;
+    height: 108px;
+    display: grid;
+    place-content: center;
+    gap: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    color: #0F3347;
+    font: inherit;
+    text-align: center;
+    cursor: pointer;
+    background: radial-gradient(circle at 35% 30%, #fff 0, #BFE0F0 28%, var(--azur) 70%, #3F86A9 100%);
+    box-shadow: 0 0 0 4px var(--creme), 0 0 0 5px var(--azur), 0 0 28px 6px rgba(111, 175, 208, 0.55);
+    transition: transform 0.3s cubic-bezier(0.3, 1.5, 0.5, 1), box-shadow 0.3s ease;
+    animation: flotte 5.5s ease-in-out infinite;
+}
+.orbe:nth-child(2n) { animation-delay: -1.8s; }
+.orbe:nth-child(3n) { animation-delay: -3.4s; }
+@keyframes flotte { 50% { translate: 0 -8px; } }
+.orbe:hover { transform: scale(1.08); }
+.orbe[aria-pressed="true"] { transform: scale(1.14); box-shadow: 0 0 0 4px var(--creme), 0 0 0 6px var(--framboise), 0 0 34px 10px rgba(178, 58, 92, 0.35); }
+.orbe-num { font-family: var(--serif); font-size: 1.7rem; font-weight: 500; line-height: 1; }
+.orbe-don { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.02em; }
+.orbe.perdue {
+    background: transparent;
+    color: var(--encre-douce);
+    box-shadow: none;
+    border: 2px dashed var(--encre-douce);
+    opacity: 0.8;
+}
+.orbe.perdue[aria-pressed="true"] { opacity: 1; border-color: var(--framboise); color: var(--framboise); box-shadow: 0 0 0 4px var(--creme), 0 0 26px 6px rgba(178, 58, 92, 0.25); }
+
+.vie-detail { width: min(100%, 680px); text-align: center; padding: 30px 34px; }
+.vie-detail h3 { font-size: 1.7rem; margin-bottom: 12px; }
+.vie-detail h3 .pastille { vertical-align: middle; margin-left: 8px; }
+.vie-detail p { margin: 0 auto; max-width: 54ch; }
+.vie-detail.perdue { background: linear-gradient(160deg, var(--framboise-pale), var(--creme) 70%); }
+.bilan-vies { margin-top: 40px; display: grid; justify-items: center; }
+.bilan-vies .points-legende { text-align: center; }
+
+@media (max-width: 600px) {
+    .orbe { width: 92px; height: 92px; }
+    .orbes { gap: 16px 12px; }
+}
